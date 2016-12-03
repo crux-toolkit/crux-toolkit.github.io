@@ -59,7 +59,7 @@
 <h2>Usage:</h2>
 <p><code>crux search-for-xlinks [options] &lt;ms2 file&gt; &lt;protein fasta file&gt; &lt;link sites&gt; &lt;link mass&gt;</code></p>
 <h2>Description:</h2>
-<p>This command compares a set of spectra to cross-linked peptides derived from a protein database in FASTA format. For each spectrum, the program generates a list of candidate molecules, including linear peptides, dead-end products, self-loop products and cross-linked products, with masses that lie within a specified range of the spectrum's precursor mass. These candidate molecules are ranked using XCorr, and the XCorr scores are assigned statistical confidence estimates using an empirical curve fitting procedure.</p><p>The algorithm is described in more detail in the following article:</p><blockquote>Sean McIlwain, Paul Draghicescu, Pragya Singh, David R. Goodlett and William Stafford Noble. <a href="http://pubs.acs.org/doi/abs/10.1021/pr901163d">&quot;Detecting cross-linked peptides by searching against a database of cross-linked peptide pairs.&quot;</a> <em>Journal of Proteome Research</em>. 2010.</blockquote>
+<p>This command compares a set of spectra to cross-linked peptides derived from a protein database in FASTA format. For each spectrum, the program generates a list of candidate molecules, including linear peptides, dead-end products, self-loop products and cross-linked products, with masses that lie within a specified range of the spectrum's precursor mass. These candidate molecules are ranked using XCorr, and the XCorr scores are assigned statistical confidence estimates using an empirical curve fitting procedure.</p><p>The algorithm is described in more detail in the following article:</p><blockquote>Sean McIlwain, Paul Draghicescu, Pragya Singh, David R. Goodlett and William Stafford Noble. <a href="http://pubs.acs.org/doi/abs/10.1021/pr901163d">&quot;Detecting cross-linked peptides by searching against a database of cross-linked peptide pairs.&quot;</a> <em>Journal of Proteome Research</em>. 2010.</blockquote><p>In search-for-xlinks, properties of the cross-linker are specified using the two required command line arguments, <link sites> and <link mass>. In addition, mass shifts associated with mono-links can be specified using the --mod option. Below are suggested parameter settings for some commonly used cross-linkers:</p><table border="1">  <tr>    <td><b>Linker</b></td>    <td><b>Link Mass</b></td>    <td><b>Link Sites</b></td>    <td><b>Mono Link</b></td>  </tr>  <tr>    <td>EDC</td>    <td>-18.0156</td>    <td>K:D,E,cterm</td>    <td>&nbsp;</td>  </tr>  <tr>    <td>BS2</td></td>    <td>96.0211296</td>    <td>K,nterm:K,nterm</td>    <td>--mod 114.0316942,113.0476524:K,nterm:1:T:T</td>  </tr>  <tr>    <td>BS3</td>    <td>138.0680742</td>    <td>K,nterm:K,nterm</td>    <td>--mod 156.0786,155.0946278:K,nterm:1:T:T</td>  </tr>  <tr>    <td>DSS</td>    <td>138.0680796</td>    <td>K,nterm:K,nterm</td>    <td>--mod 156.0786,155.0946278:K,nterm:1:T:T</td>  </tr>  <tr>    <td>AMAS</td>    <td>137.011</td>    <td>K,nterm:C</td>    <td>--mod 155.02156:K,nterm,C:1:T:T</td>  </tr>  <tr>    <td>GMBS</td>    <td>165.0422</td>    <td>K,nterm:C</td>    <td>--mod 183.05276:K,nterm,C:1:T:T</td>  </tr>  <tr>    <td>formaldehyde</td>    <td>9.98435</td>    <td>K,W,nterm:H,N,Y,K,W,R,nterm</td>    <td>--mod 12.0,30.010565:K,W,nterm:1:T:T</td>  </tr></table>
 <h2>Input:</h2>
 <ul>
   <li><code>ms2 file</code> &ndash; File containing spectra to be searched.</li>
@@ -81,6 +81,8 @@
 <li class="nobullet">
 <h3>search-for-xlinks options</h3>
 <ul>
+  <li class="nobullet"><code>--require-xlink-candidate T|F</code> &ndash; If there is no cross-link candidate found, then don't bother looking for linear, self-loop, and dead-link candidates. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--xlink-top-n &lt;integer&gt;</code> &ndash; Top-n open-mod peptides to consider in the second pass, value of 0 will search all candiates. Default = <code>250</code>.</li>
   <li class="nobullet"><code>--cmod &lt;string&gt;</code> &ndash; Specify a variable modification to apply to C-terminus of peptides. <mass change>:<max distance from protein c-term (-1 for no max)>. Note that this parameter only takes effect when specified in the parameter file. Default = <code>NO MODS</code>.</li>
   <li class="nobullet"><code>--nmod &lt;string&gt;</code> &ndash; Specify a variable modification to apply to N-terminus of peptides.  <mass change>:<max distance from protein n-term (-1 for no max)> Note that this parameter only takes effect when specified in the parameter file. Default = <code>NO MODS</code>.</li>
 </ul>
@@ -182,7 +184,7 @@
   <li class="nobullet"><code>--xlink-include-intra T|F</code> &ndash; Include intra-protein cross-link candiates within the search. Default = <code>true</code>.</li>
   <li class="nobullet"><code>--xlink-include-inter-intra T|F</code> &ndash; Include crosslink candidates that are both inter and intra. Default = <code>true</code>.</li>
   <li class="nobullet"><code>--xlink-prevents-cleavage &lt;string&gt;</code> &ndash; List of amino acids for which the cross-linker can prevent cleavage. This option is only available when use-old-xlink=F. Default = <code>K</code>.</li>
-  <li class="nobullet"><code>--max-xlink-mods &lt;integer&gt;</code> &ndash; Specify the maximum number of modifications allowed on a crosslinked peptide. This option is only available when use-old-xlink=F. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--max-xlink-mods &lt;integer&gt;</code> &ndash; Specify the maximum number of modifications allowed on a crosslinked peptide. This option is only available when use-old-xlink=F. Default = <code>255</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -207,10 +209,10 @@
     <div class="footerimportantlinks">
       <img src="../images/linkicon.png" style="width:16px; height:16px"><h3>Important links</h3>
       <ul>
-        <li><a href="../faq.html">Crux <strong>FAQ</strong></a></li>
+        <li><a href="../faq.html">Crux FAQ</a></li>
         <li><a href="../glossary.html">Glossary of terminology</a></li>
         <li><a href="http://scholar.google.com/citations?hl=en&user=Rw9S1HIAAAAJ">Google Scholar profile</a></li>
-        <li><a href="https://sourceforge.net/projects/cruxtoolkit/">SourceForge Issue's list</a></li>
+        <li><a href="https://github.com/crux-toolkit/crux-toolkit">GitHub</a></li>
         <li><a href="../release-notes.html">Release Notes</a></li>
         <li><a href="https://mailman1.u.washington.edu/mailman/listinfo/crux-users" title="Receive announcements of new versions">Join the mailing list</a></li>
         <li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license</a></li>
@@ -235,12 +237,12 @@
         MacCoss</a>
         and <a href="http://noble.gs.washington.edu/~noble">Prof. William
         Stafford Noble</a> in the Department of Genome Sciences at the
-        University of Washington, Seattle. Website by <a href="http://www.yuvalboss.com/">Yuval Boss</a>
+        University of Washington, Seattle.  Website by <a href="http://www.yuvalboss.com/">Yuval Boss</a>. 
         <br />The complete list of contributors
         can be found <a href="../contributors.html">here</a>.
         <br />
         <br />
-        Maintenance and development of Crux is funded by the <a href="https://www.nih.gov/">National Institutes of Health</a> awards R01 GM096306 and P41 GM103533. 
+        Maintenance and development of Crux is funded by the <a href="https://www.nih.gov/">National Institutes of Health</a> award P41 GM103533. 
       </p>
     </div>
   </div>
