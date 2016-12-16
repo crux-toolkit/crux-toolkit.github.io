@@ -90,6 +90,7 @@
 <h3>Masses</h3>
 <ul>
   <li class="nobullet"><code>--peptide_mass_tolerance &lt;float&gt;</code> &ndash; Controls the mass tolerance value.  The mass tolerance is set at +/- the specified number i.e. an entered value of "1.0" applies a -1.0 to +1.0 tolerance. The units of the mass tolerance is controlled by the parameter "peptide_mass_units".  Default = <code>3</code>.</li>
+  <li class="nobullet"><code>--auto_peptide_mass_tolerance false|warn|fail</code> &ndash; Automatically estimate optimal value for the peptide_mass_tolerancel parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--peptide_mass_units &lt;integer&gt;</code> &ndash; 0=amu, 1=mmu, 2=ppm. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--mass_type_parent &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--mass_type_fragment &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
@@ -110,6 +111,7 @@
 <ul>
   <li class="nobullet"><code>--fragment_bin_tol &lt;float&gt;</code> &ndash; Binning to use on fragment ions. Default = <code>1.000507</code>.</li>
   <li class="nobullet"><code>--fragment_bin_offset &lt;float&gt;</code> &ndash; Offset position to start the binning (0.0 to 1.0). Default = <code>0.4</code>.</li>
+  <li class="nobullet"><code>--auto_fragment_bin_tol false|warn|fail</code> &ndash; Automatically estimate optimal value for the fragment_bin_tol parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--theoretical_fragment_ions &lt;integer&gt;</code> &ndash; 0=default peak shape, 1=M peak only. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--use_A_ions &lt;integer&gt;</code> &ndash; Controls whether or not A-ions are considered in the search (0 - no, 1 - yes). Default = <code>0</code>.</li>
   <li class="nobullet"><code>--use_B_ions &lt;integer&gt;</code> &ndash; Controls whether or not B-ions are considered in the search (0 - no, 1 - yes). Default = <code>1</code>.</li>
