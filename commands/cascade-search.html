@@ -86,11 +86,17 @@
 </ul>
 </li>
 <li class="nobullet">
-<h3>Search parameters</h3>
+<h3>Precursor selection</h3>
 <ul>
   <li class="nobullet"><code>--precursor-window &lt;float&gt;</code> &ndash; Tolerance used for matching peptides to spectra. Peptides must be within +/- 'precursor-window' of the spectrum value. The precursor window units depend upon precursor-window-type. Default = <code>3</code>.</li>
   <li class="nobullet"><code>--auto-precursor-window false|warn|fail</code> &ndash; Automatically estimate optimal value for the precursor-window parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--precursor-window-type mass|mz|ppm</code> &ndash; Specify the units for the window that is used to select peptides around the precursor mass location (mass, mz, ppm). The magnitude of the window is defined by the precursor-window option, and candidate peptides must fall within this window. For the mass window-type, the spectrum precursor m+h value is converted to mass, and the window is defined as that mass +/- precursor-window. If the m+h value is not available, then the mass is calculated from the precursor m/z and provided charge. The peptide mass is computed as the sum of the average amino acid masses plus 18 Da for the terminal OH group. The mz window-type calculates the window as spectrum precursor m/z +/- precursor-window and then converts the resulting m/z range to the peptide mass range using the precursor charge. For the parts-per-million (ppm) window-type, the spectrum mass is calculated as in the mass type. The lower bound of the mass window is then defined as the spectrum mass / (1.0 + (precursor-window / 1000000)) and the upper bound is defined as spectrum mass / (1.0 - (precursor-window / 1000000)). Default = <code>mass</code>.</li>
+  <li class="nobullet"><code>--max-precursor-charge &lt;integer&gt;</code> &ndash; The maximum charge state of a spectra to consider in search. Default = <code>5</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>Search parameters</h3>
+<ul>
   <li class="nobullet"><code>--spectrum-min-mz &lt;float&gt;</code> &ndash; The lowest spectrum m/z to search in the ms2 file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--spectrum-max-mz &lt;float&gt;</code> &ndash; The highest spectrum m/z to search in the ms2 file. Default = <code>1e+09</code>.</li>
   <li class="nobullet"><code>--min-peaks &lt;integer&gt;</code> &ndash; The minimum number of peaks a spectrum must have for it to be searched. Default = <code>20</code>.</li>
@@ -105,7 +111,6 @@
   <li class="nobullet"><code>--mz-bin-width &lt;float&gt;</code> &ndash; Before calculation of the XCorr score, the m/z axes of the observed and theoretical spectra are discretized. This parameter specifies the size of each bin. The exact formula for computing the discretized m/z value is floor((x/mz-bin-width) + 1.0 - mz-bin-offset), where x is the observed m/z value. For low resolution ion trap ms/ms data 1.0005079 and for high resolution ms/ms 0.02 is recommended. Default = <code>1.0005079</code>.</li>
   <li class="nobullet"><code>--auto-mz-bin-width false|warn|fail</code> &ndash; Automatically estimate optimal value for the mz-bin-width parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--mz-bin-offset &lt;float&gt;</code> &ndash; In the discretization of the m/z axes of the observed and theoretical spectra, this parameter specifies the location of the left edge of the first bin, relative to mass = 0 (i.e., mz-bin-offset = 0.xx means the left edge of the first bin will be located at +0.xx Da). Default = <code>0.4</code>.</li>
-  <li class="nobullet"><code>--max-precursor-charge &lt;integer&gt;</code> &ndash; The maximum charge state of a spectra to consider in search. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--peptide-centric-search T|F</code> &ndash; Carries out a peptide-centric search. For each peptide the top-scoring spectra are reported, in contrast to the standard spectrum-centric search where the top-scoring peptides are reported. Note that in this case the "xcorr rank" column will contain the rank of the given spectrum with respect to the given candidate peptide, rather than vice versa (which is the default). Default = <code>false</code>.</li>
 </ul>
 </li>
@@ -113,6 +118,23 @@
 <h3>CPU threads</h3>
 <ul>
   <li class="nobullet"><code>--num-threads &lt;integer&gt;</code> &ndash; 0=poll CPU to set num threads; else specify num threads directly. Default = <code>0</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>param-medic options</h3>
+<ul>
+  <li class="nobullet"><code>--pm-min-precursor-mz &lt;float&gt;</code> &ndash; Minimum precursor m/z value to use in measurement error estimation. Default = <code>400</code>.</li>
+  <li class="nobullet"><code>--pm-max-precursor-mz &lt;float&gt;</code> &ndash; Minimum precursor m/z value to use in measurement error estimation. Default = <code>1800</code>.</li>
+  <li class="nobullet"><code>--pm-min-frag-mz &lt;float&gt;</code> &ndash; Minimum fragment m/z value to use in measurement error estimation. Default = <code>150</code>.</li>
+  <li class="nobullet"><code>--pm-max-frag-mz &lt;float&gt;</code> &ndash; Maximum fragment m/z value to use in measurement error estimation. Default = <code>1800</code>.</li>
+  <li class="nobullet"><code>--pm-min-scan-frag-peaks &lt;integer&gt;</code> &ndash; Minimum fragment peaks an MS/MS scan must contain to be used in measurement error estimation. Default = <code>40</code>.</li>
+  <li class="nobullet"><code>--pm-max-precursor-delta-ppm &lt;float&gt;</code> &ndash; Maximum ppm distance between precursor m/z values to consider two scans potentially generated by the same peptide for measurement error estimation. Default = <code>50</code>.</li>
+  <li class="nobullet"><code>--pm-charge &lt;integer&gt;</code> &ndash; Precursor charge state to consider MS/MS spectra from, in measurement error estimation. Ideally, this should be the most frequently occurring charge state in the given data. Default = <code>2</code>.</li>
+  <li class="nobullet"><code>--pm-top-n-frag-peaks &lt;integer&gt;</code> &ndash; Number of most-intense fragment peaks to consider for measurement error estimation, per MS/MS spectrum. Default = <code>30</code>.</li>
+  <li class="nobullet"><code>--pm-pair-top-n-frag-peaks &lt;integer&gt;</code> &ndash; Number of fragment peaks per spectrum pair to be used in fragment error estimation. Default = <code>5</code>.</li>
+  <li class="nobullet"><code>--pm-min-common-frag-peaks &lt;integer&gt;</code> &ndash; Number of the most-intense peaks that two spectra must share in order to potentially be generated by the same peptide, for measurement error estimation. Default = <code>20</code>.</li>
+  <li class="nobullet"><code>--pm-max-scan-separation &lt;integer&gt;</code> &ndash; Maximum number of scans two spectra can be separated by in order to be considered potentially generated by the same peptide, for measurement error estimation. Default = <code>1000</code>.</li>
+  <li class="nobullet"><code>--pm-min-peak-pairs &lt;integer&gt;</code> &ndash; Minimum number of peak pairs (for precursor or fragment) that must be successfully paired in order to attempt to estimate measurement error distribution. Default = <code>100</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
