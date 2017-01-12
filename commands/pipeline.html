@@ -155,7 +155,7 @@
   <li class="nobullet"><code>--auto-mz-bin-width false|warn|fail</code> &ndash; Automatically estimate optimal value for the mz-bin-width parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--mz-bin-offset &lt;float&gt;</code> &ndash; In the discretization of the m/z axes of the observed and theoretical spectra, this parameter specifies the location of the left edge of the first bin, relative to mass = 0 (i.e., mz-bin-offset = 0.xx means the left edge of the first bin will be located at +0.xx Da). Default = <code>0.4</code>.</li>
   <li class="nobullet"><code>--peptide-centric-search T|F</code> &ndash; Carries out a peptide-centric search. For each peptide the top-scoring spectra are reported, in contrast to the standard spectrum-centric search where the top-scoring peptides are reported. Note that in this case the "xcorr rank" column will contain the rank of the given spectrum with respect to the given candidate peptide, rather than vice versa (which is the default). Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--isotope-error &lt;string&gt;</code> &ndash;  Default =  (No Isotope Errors) Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--isotope-error &lt;string&gt;</code> &ndash; List of positive, non-zero integers. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--skip-preprocessing T|F</code> &ndash; Skip preprocessing steps on spectra. Default = F. Default = <code>false</code>.</li>
 </ul>
 </li>
