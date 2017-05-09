@@ -75,12 +75,6 @@
 <h2>Options:</h2>
 <ul style="list-style-type: none;">
 <li class="nobullet">
-<h3>tide-index options</h3>
-<ul>
-  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
-</ul>
-</li>
-<li class="nobullet">
 <h3>Peptide properties</h3>
 <ul>
   <li class="nobullet"><code>--max-length &lt;integer&gt;</code> &ndash; The maximum length of peptides to consider. Default = <code>50</code>.</li>
@@ -99,6 +93,7 @@
   <li class="nobullet"><code>--nterm-peptide-mods-spec &lt;string&gt;</code> &ndash; Specify peptide n-terminal modifications. Like --mods-spec, this specification has three components, but with a slightly different syntax. The <span style="color: red;">max_per_peptide</span> can be either "1", in which case it defines a variable terminal modification, or missing, in which case the modification is static. The <span style="color: green;">residues</span> field indicates which amino acids are subject to the modification, with the reside <span style="color: green;">X</span> corresponding to any amino acid. Finally, <span style="color: blue;">added_mass</span> is defined as before. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--max-mods &lt;integer&gt;</code> &ndash; The maximum number of modifications that can be applied to a single peptide. Default = <code>255</code>.</li>
   <li class="nobullet"><code>--min-mods &lt;integer&gt;</code> &ndash; The minimum number of modifications that can be applied to a single peptide. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
 </ul>
 </li>
 <li class="nobullet">

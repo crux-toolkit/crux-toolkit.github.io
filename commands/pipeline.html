@@ -102,7 +102,6 @@
   <li class="nobullet"><code>--bullseye T|F</code> &ndash; Run the Bullseye algorithm on the given MS data, using it to assign high-resolution precursor values to the MS/MS data. If a spectrum file ends with .ms2 or .cms2, matching .ms1/.cms1 files will be used as the MS1 file. Otherwise, it is assumed that the spectrum file contains both MS1 and MS2 scans. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--search-engine comet|tide-search</code> &ndash; Specify which search engine to use. Default = <code>tide-search</code>.</li>
   <li class="nobullet"><code>--post-processor percolator|assign-confidence|none</code> &ndash; Specify which post-processor to apply to the search results. Default = <code>percolator</code>.</li>
-  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
   <li class="nobullet"><code>--estimation-method mix-max|tdc|peptide-level</code> &ndash; Specify the method used to estimate q-values.  The mix-max procedure or target-decoy competition apply to PSMs. The peptide-level option eliminates any PSM for which there exists a better scoring PSM involving the same peptide, and then uses decoys to assign confidence estimates. Default = <code>tdc</code>.</li>
   <li class="nobullet"><code>--score &lt;string&gt;</code> &ndash; Specify the column (for tab-delimited input) or tag (for XML input) used as input to the q-value estimation procedure. If this parameter is unspecified, then the program searches for "xcorr score", "evalue" (comet), "exact p-value" score fields in this order in the input file.  Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--sidak T|F</code> &ndash; Adjust the score using the Sidak adjustment and reports them in a new column in the output file. Note that this adjustment only makes sense if the given scores are p-values, and that it requires the presence of the "distinct matches/spectrum" feature for each PSM. Default = <code>false</code>.</li>
@@ -127,6 +126,12 @@
   <li class="nobullet"><code>--exact-match T|F</code> &ndash; When true, require an exact match (as defined by --exact-tolerance) between the center of the precursor isolation window in the MS2 scan and the base isotopic peak of the PPID. If this option is set to false and no exact match is observed, then attempt to match using a wider m/z tolerance. This wider tolerance is calculated using the PPID's monoisotopic mass and charge (the higher the charge, the smaller the window). Default = <code>false</code>.</li>
   <li class="nobullet"><code>--exact-tolerance &lt;float&gt;</code> &ndash; Set the tolerance (+/-ppm) for --exact-match. Default = <code>10</code>.</li>
   <li class="nobullet"><code>--retention-tolerance &lt;float&gt;</code> &ndash; Set the tolerance (+/-units) around the retention time over which a PPID can be matches to the MS2 spectrum. The unit of time is whatever unit is used in your data file (usually minutes). Default = <code>0.5</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>Amino acid modifications</h3>
+<ul>
+  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
 </ul>
 </li>
 <li class="nobullet">

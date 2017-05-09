@@ -76,12 +76,6 @@
 <h2>Options:</h2>
 <ul style="list-style-type: none;">
 <li class="nobullet">
-<h3>generate-peptides options</h3>
-<ul>
-  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
-</ul>
-</li>
-<li class="nobullet">
 <h3>Peptide properties</h3>
 <ul>
   <li class="nobullet"><code>--min-mass &lt;float&gt;</code> &ndash; The minimum mass (in Da) of peptides to consider. Default = <code>200</code>.</li>
@@ -90,6 +84,12 @@
   <li class="nobullet"><code>--max-length &lt;integer&gt;</code> &ndash; The maximum length of peptides to consider. Default = <code>50</code>.</li>
   <li class="nobullet"><code>--isotopic-mass average|mono</code> &ndash; Specify the type of isotopic masses to use when calculating the peptide mass. Default = <code>mono</code>.</li>
   <li class="nobullet"><code>--clip-nterm-methionine T|F</code> &ndash; When set to T, for each protein that begins with methionine, tide-index will put two copies of the leading peptide into the index, with and without the N-terminal methionine. Default = <code>false</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>Amino acid modifications</h3>
+<ul>
+  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
 </ul>
 </li>
 <li class="nobullet">

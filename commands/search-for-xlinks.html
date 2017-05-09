@@ -85,7 +85,6 @@
   <li class="nobullet"><code>--xlink-top-n &lt;integer&gt;</code> &ndash; Top-n open-mod peptides to consider in the second pass, value of 0 will search all candiates. Default = <code>250</code>.</li>
   <li class="nobullet"><code>--cmod &lt;string&gt;</code> &ndash; Specify a variable modification to apply to C-terminus of peptides. &gt;mass change&gt;:&lt;max distance from protein c-term (-1 for no max)&gt;. Note that this parameter only takes effect when specified in the parameter file. Default = <code>NO MODS</code>.</li>
   <li class="nobullet"><code>--nmod &lt;string&gt;</code> &ndash; Specify a variable modification to apply to N-terminus of peptides.  &gt;mass change&gt;:&lt;max distance from protein c-term (-1 for no max)&gt;. Note that this parameter only takes effect when specified in the parameter file. Default = <code>NO MODS</code>.</li>
-  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -103,6 +102,7 @@
 <ul>
   <li class="nobullet"><code>--mod &lt;string&gt;</code> &ndash; Consider modifications on any amino acid in aa list with at most max-per-peptide in one peptide. The parameter takes the form &lt;mass change&gt;:&lt;aa list&gt;:&lt;max per peptide&gt;:&lt;prevents cleavage&gt;:&lt;prevents cross-link&gt;. This parameter may be included with different values multiple times so long as the total number of mod, cmod, and nmod parameters does not exceed 11. The "prevents cleavage" and "prevents cross-link" arguments are optional T/F arguments for describing whether the modification prevents enzymatic cleavage of cross-linking, respectively. This option is only available when use-old-xlink=F. Note that this parameter only takes effect when specified in the parameter file. Default = <code>NO MODS</code>.</li>
   <li class="nobullet"><code>--max-mods &lt;integer&gt;</code> &ndash; The maximum number of modifications that can be applied to a single peptide. Default = <code>255</code>.</li>
+  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
   <li class="nobullet"><code>--A &lt;float&gt;</code> &ndash; Change the mass of all amino acids 'A' by the given amount. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--C &lt;float&gt;</code> &ndash; Change the mass of all amino acids 'C' by the given amount. Default = <code>57.021464</code>.</li>
   <li class="nobullet"><code>--D &lt;float&gt;</code> &ndash; Change the mass of all amino acids 'D' by the given amount. Default = <code>0</code>.</li>
