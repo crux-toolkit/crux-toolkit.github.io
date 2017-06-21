@@ -81,80 +81,86 @@
 <h2>Options:</h2>
 <ul style="list-style-type: none;">
 <li class="nobullet">
+<h3>percolator options</h3>
+<ul>
+  <li class="nobullet"><code>--max-charge-feature &lt;integer&gt;</code> &ndash; Specifies the maximum charge state feature.  When set to zero, use the maximum observed charge state. Default = <code>0</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
 <h3>Protein inference options</h3>
 <ul>
   <li class="nobullet"><code>--picked-protein &lt;string&gt;</code> &ndash; Use the picked protein-level FDR to infer protein probabilities, provide the fasta file as the argument to this flag. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--protein-enzyme no_enzyme|elastase|pepsin|proteinasek|thermolysin|trypsinp|chymotrypsin|lys-n|lys-c|arg-c|asp-n|glu-c|trypsin</code> &ndash; Type of enzyme Default = <code>trypsin</code>.</li>
-  <li class="nobullet"><code>--protein-report-fragments T|F</code> &ndash; By default, if the peptides associated with protein A are a proper subset of the peptides associated with protein B, then protein A is eliminated and all the peptides are considered as evidence for protein B. Note that this filtering is done based on the complete set of peptides in the database, not based on the identified peptides in the search results. Alternatively, if this option is set and if all of the identified peptides associated with protein B are also associated with protein A, then Percolator will report a comma-separated list of protein IDs, where the full-length protein B is first in the list and the fragment protein A is listed second. Not available for Fido. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--protein-report-duplicates T|F</code> &ndash; If multiple database proteins contain exactly the same set of peptides, then Percolator will randomly discard all but one of the proteins. If this option is set, then the IDs of these duplicated proteins will be reported as a comma-separated list. Not available for Fido. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--protein-report-fragments T|F</code> &ndash; By default, if the peptides associated with protein A are a proper subset of the peptides associated with protein B, then protein A is eliminated and all the peptides are considered as evidence for protein B. Note that this filtering is done based on the complete set of peptides in the database, not based on the identified peptides in the search results. Alternatively, if this option is set and if all of the identified peptides associated with protein B are also associated with protein A, then Percolator will report a comma-separated list of protein IDs, where the full-length protein B is first in the list and the fragment protein A is listed second. Not available for Fido. Default = <code>false</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>Fido options</h3>
 <ul>
-  <li class="nobullet"><code>--protein T|F</code> &ndash; Use the Fido algorithm to infer protein probabilities. Must be true to use any of the Fido options. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--fido-alpha &lt;float&gt;</code> &ndash; Specify the probability with which a present protein emits an associated peptide. Set by grid search (see --fido-gridsearch-depth parameter) if not specified. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--fido-beta &lt;float&gt;</code> &ndash; Specify the probability of the creation of a peptide from noise. Set by grid search (see --fido-gridsearch-depth parameter) if not specified. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--fido-gamma &lt;float&gt;</code> &ndash; Specify the prior probability that a protein is present in the sample. Set by grid search (see --fido-gridsearch-depth parameter) if not specified. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--fido-empirical-protein-q T|F</code> &ndash; Estimate empirical p-values and q-values for proteins using target-decoy analysis. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--fido-fast-gridsearch &lt;float&gt;</code> &ndash; Apply the specified threshold to PSM, peptide and protein probabilities to obtain a faster estimate of the alpha, beta and gamma parameters. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--fido-gamma &lt;float&gt;</code> &ndash; Specify the prior probability that a protein is present in the sample. Set by grid search (see --fido-gridsearch-depth parameter) if not specified. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--fido-gridsearch-depth &lt;integer&gt;</code> &ndash; Set depth of the grid search for alpha, beta and gamma estimation. The values considered, for each possible value of the --fido-gridsearch-depth parameter, are as follows:<ul><li>0: alpha = {0.01, 0.04, 0.09, 0.16, 0.25, 0.36, 0.5}; beta = {0.0, 0.01, 0.15, 0.025, 0.035, 0.05, 0.1}; gamma = {0.1, 0.25, 0.5, 0.75}.</li><li>1: alpha = {0.01, 0.04, 0.09, 0.16, 0.25, 0.36}; beta = {0.0, 0.01, 0.15, 0.025, 0.035, 0.05}; gamma = {0.1, 0.25, 0.5}.</li><li>2: alpha = {0.01, 0.04, 0.16, 0.25, 0.36}; beta = {0.0, 0.01, 0.15, 0.030, 0.05}; gamma = {0.1, 0.5}.</li><li>3: alpha = {0.01, 0.04, 0.16, 0.25, 0.36}; beta = {0.0, 0.01, 0.15, 0.030, 0.05}; gamma = {0.5}.</li></ul> Default = <code>0</code>.</li>
   <li class="nobullet"><code>--fido-gridsearch-mse-threshold &lt;float&gt;</code> &ndash; Q-value threshold that will be used in the computation of the MSE and ROC AUC score in the grid search. Default = <code>0.05</code>.</li>
-  <li class="nobullet"><code>--fido-fast-gridsearch &lt;float&gt;</code> &ndash; Apply the specified threshold to PSM, peptide and protein probabilities to obtain a faster estimate of the alpha, beta and gamma parameters. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--fido-protein-truncation-threshold &lt;float&gt;</code> &ndash; To speed up inference, proteins for which none of the associated peptides has a probability exceeding the specified threshold will be assigned probability = 0. Default = <code>0.01</code>.</li>
   <li class="nobullet"><code>--fido-no-split-large-components T|F</code> &ndash; Do not approximate the posterior distribution by allowing large graph components to be split into subgraphs. The splitting is done by duplicating peptides with low probabilities. Splitting continues until the number of possible configurations of each subgraph is below 2^18 Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--fido-protein-truncation-threshold &lt;float&gt;</code> &ndash; To speed up inference, proteins for which none of the associated peptides has a probability exceeding the specified threshold will be assigned probability = 0. Default = <code>0.01</code>.</li>
+  <li class="nobullet"><code>--protein T|F</code> &ndash; Use the Fido algorithm to infer protein probabilities. Must be true to use any of the Fido options. Default = <code>false</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>General options</h3>
 <ul>
   <li class="nobullet"><code>--only-psms T|F</code> &ndash; Do not remove redundant peptides; keep all PSMs and exclude peptide level probability. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--tdc T|F</code> &ndash; Use target-decoy competition to assign q-values and PEPs. When set to F, the mix-max method, which estimates the proportion pi0 of incorrect target PSMs, is used instead. Default = <code>true</code>.</li>
   <li class="nobullet"><code>--search-input auto|separate|concatenated</code> &ndash; Specify the type of target-decoy search. Using 'auto', percolator attempts to detect the search type automatically.  Using 'separate' specifies two searches: one against target and one against decoy protein db. Using 'concatenated' specifies a single search on concatenated target-decoy protein db. Default = <code>auto</code>.</li>
+  <li class="nobullet"><code>--tdc T|F</code> &ndash; Use target-decoy competition to assign q-values and PEPs. When set to F, the mix-max method, which estimates the proportion pi0 of incorrect target PSMs, is used instead. Default = <code>true</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>SVM training options</h3>
 <ul>
-  <li class="nobullet"><code>--subset-max-train &lt;integer&gt;</code> &ndash; Only train Percolator on a subset of PSMs, and use the resulting score vector to evaluate the other PSMs. Recommended when analyzing huge numbers (>1 million) of PSMs. When set to 0, all PSMs are used for training as normal. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--c-pos &lt;float&gt;</code> &ndash; Penalty for mistakes made on positive examples. If this value is set to 0, then it is set via cross validation over the values {0.1, 1, 10}, selecting the value that yields the largest number of PSMs identified at the q-value threshold set via the --test-fdr parameter. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--c-neg &lt;float&gt;</code> &ndash; Penalty for mistake made on negative examples. If not specified, then this value is set by cross validation over {0.1, 1, 10}. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--train-fdr &lt;float&gt;</code> &ndash; False discovery rate threshold to define positive examples in training. Default = <code>0.01</code>.</li>
-  <li class="nobullet"><code>--test-fdr &lt;float&gt;</code> &ndash; False discovery rate threshold used in selecting hyperparameters during internal cross-validation and for reporting the final results. Default = <code>0.01</code>.</li>
+  <li class="nobullet"><code>--c-pos &lt;float&gt;</code> &ndash; Penalty for mistakes made on positive examples. If this value is set to 0, then it is set via cross validation over the values {0.1, 1, 10}, selecting the value that yields the largest number of PSMs identified at the q-value threshold set via the --test-fdr parameter. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--maxiter &lt;integer&gt;</code> &ndash; Maximum number of iterations for training. Default = <code>10</code>.</li>
-  <li class="nobullet"><code>--quick-validation T|F</code> &ndash; Quicker execution by reduced internal cross-validation. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--test-each-iteration T|F</code> &ndash; Measure performance on test set each iteration. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--percolator-seed &lt;string&gt;</code> &ndash; When given a unsigned integer value seeds the random number generator with that value. When given the string "time" seeds the random number generator with the system time. Default = <code>1</code>.</li>
+  <li class="nobullet"><code>--quick-validation T|F</code> &ndash; Quicker execution by reduced internal cross-validation. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--subset-max-train &lt;integer&gt;</code> &ndash; Only train Percolator on a subset of PSMs, and use the resulting score vector to evaluate the other PSMs. Recommended when analyzing huge numbers (>1 million) of PSMs. When set to 0, all PSMs are used for training as normal. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--test-each-iteration T|F</code> &ndash; Measure performance on test set each iteration. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--test-fdr &lt;float&gt;</code> &ndash; False discovery rate threshold used in selecting hyperparameters during internal cross-validation and for reporting the final results. Default = <code>0.01</code>.</li>
+  <li class="nobullet"><code>--train-fdr &lt;float&gt;</code> &ndash; False discovery rate threshold to define positive examples in training. Default = <code>0.01</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>SVM feature input options</h3>
 <ul>
-  <li class="nobullet"><code>--output-weights T|F</code> &ndash; Output final weights to a file named "percolator.weights.txt". Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--init-weights &lt;string&gt;</code> &ndash; Read initial weights from the given file (one per line). Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--default-direction &lt;string&gt;</code> &ndash; In its initial round of training, Percolator uses one feature to induce a ranking of PSMs. By default, Percolator will select the feature that produces the largest set of target PSMs at a specified FDR threshold (cf. --train-fdr). This option allows the user to specify which feature is used for the initial ranking, using the name as a string from <a href="../file-formats/features.html">this table</a>. The name can be preceded by a hyphen (e.g. "-XCorr") to indicate that a lower value is better. Default = <code>&lt;empty&gt;</code>.</li>
-  <li class="nobullet"><code>--unitnorm T|F</code> &ndash; Use unit normalization (i.e., linearly rescale each PSM's feature vector to have a Euclidean length of 1), instead of standard deviation normalization. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--override T|F</code> &ndash; By default, Percolator will examine the learned weights for each feature, and if the weight appears to be problematic, then percolator will discard the learned weights and instead employ a previously trained, static score vector. This switch allows this error checking to be overriden. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--init-weights &lt;string&gt;</code> &ndash; Read initial weights from the given file (one per line). Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--klammer T|F</code> &ndash; Use retention time features calculated as in "Improving tandem mass spectrum identification using peptide retention time prediction across diverse chromatography conditions" by Klammer AA, Yi X, MacCoss MJ and Noble WS. (<em>Analytical Chemistry</em>. 2007 Aug 15;79(16):6111-8.). Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--output-weights T|F</code> &ndash; Output final weights to a file named "percolator.weights.txt". Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--override T|F</code> &ndash; By default, Percolator will examine the learned weights for each feature, and if the weight appears to be problematic, then percolator will discard the learned weights and instead employ a previously trained, static score vector. This switch allows this error checking to be overriden. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--unitnorm T|F</code> &ndash; Use unit normalization (i.e., linearly rescale each PSM's feature vector to have a Euclidean length of 1), instead of standard deviation normalization. Default = <code>false</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>Input and output</h3>
 <ul>
+  <li class="nobullet"><code>--decoy-prefix &lt;string&gt;</code> &ndash; Specifies the prefix of the protein names that indicate a decoy. Default = <code>decoy_</code>.</li>
+  <li class="nobullet"><code>--decoy-xml-output T|F</code> &ndash; Include decoys (PSMs, peptides, and/or proteins) in the XML output. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--feature-file-in T|F</code> &ndash; When set to T, interpret the input file as a PIN file. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--feature-file-out T|F</code> &ndash; Output the computed features in <a href="../file-formats/features.html">tab-delimited text format</a>. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--fileroot &lt;string&gt;</code> &ndash; The fileroot string will be added as a prefix to all output file names. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--list-of-files T|F</code> &ndash; Specify that the search results are provided as lists of files, rather than as individual files. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--mzid-output T|F</code> &ndash; Output an mzIdentML results file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--output-dir &lt;string&gt;</code> &ndash; The name of the directory where output files will be created. Default = <code>crux-output</code>.</li>
   <li class="nobullet"><code>--overwrite T|F</code> &ndash; Replace existing files if true or fail when trying to overwrite a file if false. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--txt-output T|F</code> &ndash; Output a tab-delimited results file to the output directory. Default = <code>true</code>.</li>
-  <li class="nobullet"><code>--pout-output T|F</code> &ndash; Output a Percolator <a href="https://github.com/percolator/percolator/blob/master/src/xml/percolator_out.xsd">pout.xml</a> format results file to the output directory. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--mzid-output T|F</code> &ndash; Output an mzIdentML results file to the output directory. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--pepxml-output T|F</code> &ndash; Output a pepXML results file to the output directory. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--feature-file-out T|F</code> &ndash; Output the computed features in <a href="../file-formats/features.html">tab-delimited text format</a>. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--list-of-files T|F</code> &ndash; Specify that the search results are provided as lists of files, rather than as individual files. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--parameter-file &lt;string&gt;</code> &ndash; A file containing parameters.  See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = <code>&lt;empty&gt;</code>.</li>
-  <li class="nobullet"><code>--feature-file-in T|F</code> &ndash; When set to T, interpret the input file as a PIN file. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--decoy-xml-output T|F</code> &ndash; Include decoys (PSMs, peptides, and/or proteins) in the XML output. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--decoy-prefix &lt;string&gt;</code> &ndash; Specifies the prefix of the protein names that indicate a decoy. Default = <code>decoy_</code>.</li>
-  <li class="nobullet"><code>--verbosity &lt;integer&gt;</code> &ndash; Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = <code>30</code>.</li>
+  <li class="nobullet"><code>--pepxml-output T|F</code> &ndash; Output a pepXML results file to the output directory. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--pout-output T|F</code> &ndash; Output a Percolator <a href="https://github.com/percolator/percolator/blob/master/src/xml/percolator_out.xsd">pout.xml</a> format results file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--top-match &lt;integer&gt;</code> &ndash; Specify the number of matches to report for each spectrum. Default = <code>5</code>.</li>
+  <li class="nobullet"><code>--txt-output T|F</code> &ndash; Output a tab-delimited results file to the output directory. Default = <code>true</code>.</li>
+  <li class="nobullet"><code>--verbosity &lt;integer&gt;</code> &ndash; Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = <code>30</code>.</li>
 </ul>
 </li>
 

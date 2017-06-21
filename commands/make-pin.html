@@ -74,16 +74,22 @@
 <h2>Options:</h2>
 <ul style="list-style-type: none;">
 <li class="nobullet">
+<h3>make-pin options</h3>
+<ul>
+  <li class="nobullet"><code>--max-charge-feature &lt;integer&gt;</code> &ndash; Specifies the maximum charge state feature.  When set to zero, use the maximum observed charge state. Default = <code>0</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
 <h3>Input and output</h3>
 <ul>
-  <li class="nobullet"><code>--top-match &lt;integer&gt;</code> &ndash; Specify the number of matches to report for each spectrum. Default = <code>5</code>.</li>
-  <li class="nobullet"><code>--list-of-files T|F</code> &ndash; Specify that the search results are provided as lists of files, rather than as individual files. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--decoy-prefix &lt;string&gt;</code> &ndash; Specifies the prefix of the protein names that indicate a decoy. Default = <code>decoy_</code>.</li>
   <li class="nobullet"><code>--fileroot &lt;string&gt;</code> &ndash; The fileroot string will be added as a prefix to all output file names. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--list-of-files T|F</code> &ndash; Specify that the search results are provided as lists of files, rather than as individual files. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--output-dir &lt;string&gt;</code> &ndash; The name of the directory where output files will be created. Default = <code>crux-output</code>.</li>
   <li class="nobullet"><code>--output-file &lt;string&gt;</code> &ndash; Path where pin file will be written instead of make-pin.pin. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--overwrite T|F</code> &ndash; Replace existing files if true or fail when trying to overwrite a file if false. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--parameter-file &lt;string&gt;</code> &ndash; A file containing parameters.  See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--top-match &lt;integer&gt;</code> &ndash; Specify the number of matches to report for each spectrum. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--verbosity &lt;integer&gt;</code> &ndash; Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = <code>30</code>.</li>
 </ul>
 </li>
