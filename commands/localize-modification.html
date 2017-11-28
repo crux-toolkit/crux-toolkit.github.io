@@ -74,8 +74,21 @@ This command finds, for each peptide-spectrum match (PSM) in a given set, the mo
 <h2>Options:</h2>
 <ul style="list-style-type: none;">
 <li class="nobullet">
+<h3>localize-modification options</h3>
+<ul>
+  <li class="nobullet"><code>--min-mod-mass &lt;float&gt;</code> &ndash; Ignore implied modifications where the absolute value of its mass is below this value and only score the unmodified peptide. Default = <code>0</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>Amino acid modifications</h3>
+<ul>
+  <li class="nobullet"><code>--mod-precision &lt;integer&gt;</code> &ndash; Set the precision for modifications as written to .txt files. Default = <code>2</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
 <h3>Input and output</h3>
 <ul>
+  <li class="nobullet"><code>--top-match &lt;integer&gt;</code> &ndash; Specify the number of matches to report for each spectrum. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--output-dir &lt;string&gt;</code> &ndash; The name of the directory where output files will be created. Default = <code>crux-output</code>.</li>
   <li class="nobullet"><code>--overwrite T|F</code> &ndash; Replace existing files if true or fail when trying to overwrite a file if false. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--parameter-file &lt;string&gt;</code> &ndash; A file containing parameters.  See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = <code>&lt;empty&gt;</code>.</li>
