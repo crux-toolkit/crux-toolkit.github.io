@@ -59,7 +59,7 @@
 <h2>Usage:</h2>
 <p><code>crux generate-peptides [options] &lt;protein fasta file&gt;</code></p>
 <h2>Description:</h2>
-<p>This command takes as input a protein FASTA file and outputs the corresponding list of peptides, as well as a matched list of decoy peptides and decoy proteins. Decoys are generated either by reversing or shuffling the non-terminal amino acids of each peptide. The program will shuffle each peptide multiple times to attempt to ensure that there is no overlap between the target and decoy peptides. For homopolymers, this is not possible. In this case, the occurrence of these target/decoy overlaps is recorded in the log file.</p><p>The program considers only the standard set of 20 amino acids. Peptides containing non-amino acid alphanumeric characters (BJOUXZ) are skipped. Non-alphanumeric characters are ignored completely.</p>
+<p>This command takes as input a protein FASTA file and outputs the corresponding list of peptides, as well as a matched list of decoy peptides and decoy proteins. Decoys are generated either by reversing or shuffling the non-terminal amino acids of each peptide. The program will shuffle each peptide multiple times to attempt to ensure that there is no overlap between the target and decoy peptides. For homopolymers, this is not possible. In this case, the occurrence of these target/decoy overlaps is recorded in the log file.</p><p>The program considers only the standard set of 20 amino acids. Peptides containing non-amino acid alphanumeric characters (BXZ) are skipped. Non-alphanumeric characters are ignored completely.</p>
 <h2>Input:</h2>
 <ul>
   <li><code>protein fasta file</code> &ndash; The name of the file in FASTA format from which to retrieve proteins.</li>
