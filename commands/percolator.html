@@ -84,6 +84,8 @@
 <h3>percolator options</h3>
 <ul>
   <li class="nobullet"><code>--max-charge-feature &lt;integer&gt;</code> &ndash; Specifies the maximum charge state feature.  When set to zero, use the maximum observed charge state. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--spectral-counting-fdr &lt;float&gt;</code> &ndash; Report the number of unique PSMs and total (including shared peptides) PSMs as two extra columns in the protein tab-delimited output. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--train-best-positive T|F</code> &ndash; Enforce that, for each spectrum, at most one PSM is included in the positive set during each training iteration. Note that if the user only provides one PSM per spectrum, then this option will have no effect. Default = <code>false</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
