@@ -338,7 +338,7 @@
 <li class="nobullet">
 <h3>General options</h3>
 <ul>
-  <li class="nobullet"><code>--only-psms T|F</code> &ndash; Do not remove redundant peptides; keep all PSMs and exclude peptide level probability. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--only-psms T|F</code> &ndash; Report results only at the PSM level.  This flag causes Percolator to skip the step that selects the top-scoring PSM per peptide; hence, peptide-level results are left out and only PSM-level results are reported. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--search-input auto|separate|concatenated</code> &ndash; Specify the type of target-decoy search. Using 'auto', percolator attempts to detect the search type automatically.  Using 'separate' specifies two searches: one against target and one against decoy protein db. Using 'concatenated' specifies a single search on concatenated target-decoy protein db. Default = <code>auto</code>.</li>
   <li class="nobullet"><code>--tdc T|F</code> &ndash; Use target-decoy competition to assign q-values and PEPs. When set to F, the mix-max method, which estimates the proportion pi0 of incorrect target PSMs, is used instead. Default = <code>true</code>.</li>
 </ul>
@@ -409,6 +409,7 @@
   <li class="nobullet"><code>--store-spectra &lt;string&gt;</code> &ndash; Specify the name of the file where the binarized fragmentation spectra will be stored. Subsequent runs of crux tide-search will execute more quickly if provided with the spectra in binary format. The filename is specified relative to the current working directory, not the Crux output directory (as specified by --output-dir). This option is not valid if multiple input spectrum files are given. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--top-match &lt;integer&gt;</code> &ndash; Specify the number of matches to report for each spectrum. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--txt-output T|F</code> &ndash; Output a tab-delimited results file to the output directory. Default = <code>true</code>.</li>
+  <li class="nobullet"><code>--brief-output T|F</code> &ndash; Output in tab-delimited text only the file name, scan number, charge, score and peptide. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--use-z-line T|F</code> &ndash; Specify whether, when parsing an MS2 spectrum file, Crux obtains the precursor mass information from the "S" line or the "Z" line.  Default = <code>true</code>.</li>
   <li class="nobullet"><code>--output_sqtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--output_txtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write tab-delimited text file. Default = <code>1</code>.</li>

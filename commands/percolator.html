@@ -115,7 +115,7 @@
 <li class="nobullet">
 <h3>General options</h3>
 <ul>
-  <li class="nobullet"><code>--only-psms T|F</code> &ndash; Do not remove redundant peptides; keep all PSMs and exclude peptide level probability. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--only-psms T|F</code> &ndash; Report results only at the PSM level.  This flag causes Percolator to skip the step that selects the top-scoring PSM per peptide; hence, peptide-level results are left out and only PSM-level results are reported. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--search-input auto|separate|concatenated</code> &ndash; Specify the type of target-decoy search. Using 'auto', percolator attempts to detect the search type automatically.  Using 'separate' specifies two searches: one against target and one against decoy protein db. Using 'concatenated' specifies a single search on concatenated target-decoy protein db. Default = <code>auto</code>.</li>
   <li class="nobullet"><code>--tdc T|F</code> &ndash; Use target-decoy competition to assign q-values and PEPs. When set to F, the mix-max method, which estimates the proportion pi0 of incorrect target PSMs, is used instead. Default = <code>true</code>.</li>
 </ul>
