@@ -202,6 +202,8 @@
 <h3>Database</h3>
 <ul>
   <li class="nobullet"><code>--decoy_search &lt;integer&gt;</code> &ndash; 0=no, 1=concatenated search, 2=separate search. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--peff_format &lt;integer&gt;</code> &ndash; 0=normal FASTA format,1=PEFF PSI-MOD modifications and amino acid variants,2=PEFF Unimod modifications and amino acid variants,3=PEFF PSI-MOD modifications, skipping amino acid variants,4=PEFF Unimod modifications, skipping amino acid variants,5=PEFF amino acid variants, skipping PEFF modifications. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--peff_obo &lt;string&gt;</code> &ndash; A full or relative path to the OBO file used with a PEFF search. Supported OBO formats are PSI-Mod and Unimod OBO files. Which OBO file you use depends on your PEFF input file. This parameter is ignored if "peff_format = 0". There is no default value if this parameter is missing. Default = <code>&lt;empty&gt;</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -215,7 +217,7 @@
 <h3>Masses</h3>
 <ul>
   <li class="nobullet"><code>--peptide_mass_tolerance &lt;float&gt;</code> &ndash; Controls the mass tolerance value.  The mass tolerance is set at +/- the specified number i.e. an entered value of "1.0" applies a -1.0 to +1.0 tolerance. The units of the mass tolerance is controlled by the parameter "peptide_mass_units".  Default = <code>3</code>.</li>
-  <li class="nobullet"><code>--auto_peptide_mass_tolerance false|warn|fail</code> &ndash; Automatically estimate optimal value for the peptide_mass_tolerancel parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--auto_peptide_mass_tolerance false|warn|fail</code> &ndash; Automatically estimate optimal value for the peptide_mass_tolerance parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--peptide_mass_units &lt;integer&gt;</code> &ndash; 0=amu, 1=mmu, 2=ppm. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--mass_type_parent &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--mass_type_fragment &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
@@ -227,6 +229,7 @@
 <h3>Search enzyme</h3>
 <ul>
   <li class="nobullet"><code>--search_enzyme_number &lt;integer&gt;</code> &ndash; Specify a search enzyme from the end of the parameter file. Default = <code>1</code>.</li>
+  <li class="nobullet"><code>--search_enzyme2_number &lt;integer&gt;</code> &ndash; Specify a second search enzyme from the end of the parameter file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--num_enzyme_termini &lt;integer&gt;</code> &ndash; valid values are 1 (semi-digested), 2 (fully digested), 8 N-term, 9 C-term. Default = <code>2</code>.</li>
   <li class="nobullet"><code>--allowed_missed_cleavage &lt;integer&gt;</code> &ndash; Maximum value is 5; for enzyme search. Default = <code>2</code>.</li>
 </ul>
@@ -264,13 +267,18 @@
   <li class="nobullet"><code>--num_results &lt;integer&gt;</code> &ndash; Number of search hits to store internally. Default = <code>50</code>.</li>
   <li class="nobullet"><code>--skip_researching &lt;integer&gt;</code> &ndash; For '.out' file output only, 0=search everything again, 1=don't search if .out exists. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--max_fragment_charge &lt;integer&gt;</code> &ndash; Set maximum fragment charge state to analyze (allowed max 5). Default = <code>3</code>.</li>
+  <li class="nobullet"><code>--max_index_runtime &lt;integer&gt;</code> &ndash; Sets the maximum indexed database search run time for a scan/query. Valid values are integers 0 or higher representing the maximum run time in milliseconds. As Comet loops through analyzing peptides from the database index file, it checks the cummulative run time of that spectrum search after each peptide is analyzed. If the run time exceeds the value set for this parameter, the search is aborted and the best peptide result analyzed up to that point is returned. To have no maximum search time, set this parameter value to "0". The default value is "0". Default = <code>0</code>.</li>
   <li class="nobullet"><code>--max_precursor_charge &lt;integer&gt;</code> &ndash; Set maximum precursor charge state to analyze (allowed max 9). Default = <code>6</code>.</li>
   <li class="nobullet"><code>--nucleotide_reading_frame &lt;integer&gt;</code> &ndash; 0=proteinDB, 1-6, 7=forward three, 8=reverse three, 9=all six. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--clip_nterm_methionine &lt;integer&gt;</code> &ndash; 0=leave sequences as-is; 1=also consider sequence w/o N-term methionine. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--spectrum_batch_size &lt;integer&gt;</code> &ndash; Maximum number of spectra to search at a time; 0 to search the entire scan range in one loop. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--decoy_prefix &lt;string&gt;</code> &ndash; Specifies the prefix of the protein names that indicates a decoy. Default = <code>decoy_</code>.</li>
   <li class="nobullet"><code>--output_suffix &lt;string&gt;</code> &ndash; Specifies the suffix string that is appended to the base output name for the pep.xml, pin.xml, txt and sqt output files. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--peptide_length_range &lt;string&gt;</code> &ndash; Defines the length range of peptides to search. This parameter has two integer values. The first value is the minimum length cutoff and the second value is the maximum length cutoff. Only peptides within the specified length range are analyzed. The maximum peptide length that Comet can analyze is 63. The default values are "1 63". Default = <code>1 63</code>.</li>
+  <li class="nobullet"><code>--precursor_NL_ions &lt;string&gt;</code> &ndash; Controls whether or not precursor neutral loss peaks are considered in the xcorr scoring. If left blank, this parameter is ignored.  To consider precursor neutral loss peaks, add one or more neutral loss mass value separated by a space.  Each entered mass value will be subtracted from the experimentral precursor mass and resulting neutral loss m/z values for all charge states (from 1 to precursor charge) will be analyzed. As these neutral loss peaks are analyzed along side fragment ion peaks, the fragment tolerance settings (fragment_bin_tol, fragment_bin_offset, theoretical_fragment_ion) apply to the precursor neutral loss peaks. The default value is blank/unused. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--equal_I_and_L &lt;integer&gt;</code> &ndash; This parameter controls whether the Comet treats isoleucine (I) and leucine (L) as the same/equivalent with respect to a peptide identification. 0 treats I and L as different, 1 treats I and L as the same. The default value is "1" Default = <code>1</code>.</li>
   <li class="nobullet"><code>--mass_offsets &lt;string&gt;</code> &ndash; Specifies one or more mass offsets to apply. This value(s) are effectively subtracted from each precursor mass such that peptides that are smaller than the precursor mass by the offset value can still be matched to the respective spectrum. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--max_duplicate_proteins &lt;integer&gt;</code> &ndash; defines the maximum number of proteins (identifiers/accessions) to report. If a peptide is present in 6 total protein sequences, there is one (first) reference protein and 5 additional duplicate proteins. This parameter controls how many of those 5 additional duplicate proteins are reported.If "decoy_search = 2" is set to report separate target and decoy results, this parameter will be applied to the target and decoy outputs separately. If set to "-1", there will be no limit on the number of reported additional proteins. The default value is "20" if this parameter is missing. Default = <code>20</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -411,11 +419,11 @@
   <li class="nobullet"><code>--txt-output T|F</code> &ndash; Output a tab-delimited results file to the output directory. Default = <code>true</code>.</li>
   <li class="nobullet"><code>--brief-output T|F</code> &ndash; Output in tab-delimited text only the file name, scan number, charge, score and peptide. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--use-z-line T|F</code> &ndash; Specify whether, when parsing an MS2 spectrum file, Crux obtains the precursor mass information from the "S" line or the "Z" line.  Default = <code>true</code>.</li>
+  <li class="nobullet"><code>--output_sqtstream &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--output_sqtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--output_txtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write tab-delimited text file. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--output_pepxmlfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write pep.xml file. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--output_percolatorfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes write percolator file. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--output_outfiles &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write .out files. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--print_expect_score &lt;integer&gt;</code> &ndash; 0=no, 1=yes to replace Sp with expect in out & sqt. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--num_output_lines &lt;integer&gt;</code> &ndash; num peptide results to show. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--show_fragment_ions &lt;integer&gt;</code> &ndash; 0=no, 1=yes for out files only. Default = <code>0</code>.</li>
