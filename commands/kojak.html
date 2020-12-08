@@ -57,12 +57,12 @@
     <!-- START CONTENT -->
 <h1>kojak</h1>
 <h2>Usage:</h2>
-<p><code>crux kojak [options] &lt;input spectra&gt;+ &lt;protein database&gt;</code></p>
+<p><code>crux kojak [options] &lt;input spectra&gt; &lt;protein database&gt;</code></p>
 <h2>Description:</h2>
 <p>Kojak is a database search tool for the identification of cross-linked peptides from mass spectra. This search engine was developed and is maintained by Michael Hoopmann at the Institute for Systems Biology. Additional information about Kojak can be found at <a href="http://www.kojak-ms.org">kojak-ms.org</a>.</p><p>If you use Kojak, please cite:</p> <p><a href="https://doi.org/10.1021/pr501321h">"Kojak: Efficient analysis of chemically cross-linked protein complexes."</a> Hoopmann MR, Zelter A, Johnson RS, Riffle M, MacCoss MJ, Davis TN, Moritz RL. <em>J Proteome Res</em> 2015 May 1. doi: 10.1021/pr501321h
 <h2>Input:</h2>
 <ul>
-  <li><code>input spectra+</code> &ndash; The name of the file from which to parse the spectra. Valid formats include mzXML, mzML, mz5, raw, ms2, and cms2. Files in mzML or mzXML may be compressed with gzip. RAW files can be parsed only under windows and if the appropriate libraries were included at compile time.</li>
+  <li><code>input spectra</code> &ndash; The name of one or more files from which to parse the spectra. Valid formats include mzXML, mzML, mz5, raw, ms2, and cms2. Files in mzML or mzXML may be compressed with gzip. RAW files can be parsed only under windows and if the appropriate libraries were included at compile time. Multiple files can be included on the command line (space delimited), prior to the name of the database.</li>
   <li><code>protein database</code> &ndash; The name of the fasta file containing the amino acid protein sequences to be searched. Kojak can generate decoy sequences internally, or they may be in this file (see the <code>decoy_filter</code> option for details). It is recommended to include the full path in the name of the file.</li>
 </ul>
 <h2>Output:</h2>

@@ -57,12 +57,12 @@
     <!-- START CONTENT -->
 <h1>pipeline</h1>
 <h2>Usage:</h2>
-<p><code>crux pipeline [options] &lt;mass spectra&gt;+ &lt;peptide source&gt;</code></p>
+<p><code>crux pipeline [options] &lt;mass spectra&gt; &lt;peptide source&gt;</code></p>
 <h2>Description:</h2>
 <p>Given one or more sets of tandem mass spectra as well as a protein database, this command runs a series of Crux tools and reports all of the results in a single output directory. There are three steps in the pipeline:</p><ol><li><a href="bullseye.html">Bullseye</a> to assign high-resolution precursor m/z values to MS/MS data. This step is optional.</li><li>Database searching using either <a href="tide-search.html">Tide-search</a> or <a href="comet.html">Comet</a>. The database can be provided as a file in FASTA format, or additionally, an index as produced by <a href="tide-index.html">tide-index</a>.</li><li>Post-processing using either <a href="assign-confidence.html">assign-confidence</a> or <a href="percolator.html">Percolator</a>.</li></ol><p>All of the command line options associated with the individual tools in the pipeline can be used with the <code>pipeline</code> command.</p>
 <h2>Input:</h2>
 <ul>
-  <li><code>mass spectra+</code> &ndash; The name of the file(s) from which to parse the fragmentation spectra, in any of the <a href="http://proteowizard.sourceforge.net/tools.shtml">file formats supported by ProteoWizard</a>. Alteratively, with Tide-search, these files may be binary spectrum files produced by a previous run of <code>crux tide-search</code> using the <code>store-spectra</code> parameter.</li>
+  <li><code>mass spectra</code> &ndash; The name of the file(s) from which to parse the fragmentation spectra, in any of the <a href="http://proteowizard.sourceforge.net/tools.shtml">file formats supported by ProteoWizard</a>. Alteratively, with Tide-search, these files may be binary spectrum files produced by a previous run of <code>crux tide-search</code> using the <code>store-spectra</code> parameter. Multiple files can be included on the command line (space delimited), prior to the name of the database.</li>
   <li><code>peptide source</code> &ndash; Either the name of a file in fasta format from which to retrieve proteins and peptides or an index created by a previous run of <code>crux tide-index</code> (for Tide searching).</li>
 </ul>
 <h2>Output:</h2>

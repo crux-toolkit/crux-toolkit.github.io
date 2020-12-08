@@ -57,12 +57,12 @@
     <!-- START CONTENT -->
 <h1>tide-search</h1>
 <h2>Usage:</h2>
-<p><code>crux tide-search [options] &lt;tide spectra file&gt;+ &lt;tide database&gt;</code></p>
+<p><code>crux tide-search [options] &lt;tide spectra file&gt; &lt;tide database&gt;</code></p>
 <h2>Description:</h2>
 <p>Tide is a tool for identifying peptides from tandem mass spectra. It is an independent reimplementation of the SEQUEST<sup>&reg;</sup> algorithm, which assigns peptides to spectra by comparing the observed spectra to a catalog of theoretical spectra derived from a database of known proteins. Tide's primary advantage is its speed. Our published paper provides more detail on how Tide works. If you use Tide in your research, please cite:</p><blockquote>Benjamin J. Diament and William Stafford Noble. <a href="http://dx.doi.org/10.1021/pr101196n">&quot;Faster SEQUEST Searching for Peptide Identification from Tandem Mass Spectra&quot;</a>. <em>Journal of Proteome Research</em>. 10(9):3871-9, 2011.</blockquote> <p>When <code>tide-search</code> runs, it performs several intermediate steps, as follows:</p><ol><li>If a FASTA file was provided, convert it to an index using <code>tide-index</code>.</li><li>Convert the given fragmentation spectra to a binary format.</li><li>Search the spectra against the database and store the results in binary format.</li><li>Convert the results to one or more requested output formats.</li></ol><p>By default, the intermediate binary files are stored in the output directory and deleted when Tide finishes execution. If you plan to search against given database more than once or search a given set of spectra more than once, then you can direct Tide to save the binary spectrum files using the <code>--store-index</code> and <code>--store-spectra</code> options. Subsequent runs of the program will go faster if provided with inputs in binary format.</p>
 <h2>Input:</h2>
 <ul>
-  <li><code>tide spectra file+</code> &ndash; The name of one or more files from which to parse the fragmentation spectra, in any of the file formats supported by ProteoWizard. Alternatively, the argument may be one or more binary spectrum files produced by a previous run of crux tide-search using the store-spectra parameter.</li>
+  <li><code>tide spectra file</code> &ndash; The name of one or more files from which to parse the fragmentation spectra, in any of the file formats supported by ProteoWizard. Alternatively, the argument may be one or more binary spectrum files produced by a previous run of crux tide-search using the store-spectra parameter. Multiple files can be included on the command line (space delimited), prior to the name of the database.</li>
   <li><code>tide database</code> &ndash; Either a FASTA file or a directory containing a database index created by a previous run of crux tide-index.</li>
 </ul>
 <h2>Output:</h2>

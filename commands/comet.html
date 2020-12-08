@@ -57,12 +57,12 @@
     <!-- START CONTENT -->
 <h1>comet</h1>
 <h2>Usage:</h2>
-<p><code>crux comet [options] &lt;input spectra&gt;+ &lt;database_name&gt;</code></p>
+<p><code>crux comet [options] &lt;input spectra&gt; &lt;database_name&gt;</code></p>
 <h2>Description:</h2>
 <p>This command searches a protein database with a set of spectra, assigning peptide sequences to the observed spectra. This search engine was developed by Jimmy Eng at the University of Washington Proteomics Resource.</p><p>Although its history goes back two decades, the Comet search engine was first made publicly available in August 2012 on SourceForge. Comet is multithreaded and supports multiple input and output formats.</p><blockquote><a href="http://onlinelibrary.wiley.com/doi/10.1002/pmic.201200439/abstract">&quot;Comet: an open source tandem mass spectrometry sequence database search tool.&quot;</a> Eng JK, Jahan TA, Hoopmann MR. <em>Proteomics</em>. 2012 Nov 12. doi: 10.1002/pmic201200439</blockquote>
 <h2>Input:</h2>
 <ul>
-  <li><code>input spectra+</code> &ndash; The name of the file from which to parse the spectra. Valid formats include mzXML, mzML, mz5, raw, ms2, and cms2. Files in mzML or mzXML may be compressed with gzip. RAW files can be parsed only under windows and if the appropriate libraries were included at compile time.</li>
+  <li><code>input spectra</code> &ndash; The name of one or more files from which to parse the spectra. Valid formats include mzXML, mzML, mz5, raw, ms2, and cms2. Files in mzML or mzXML may be compressed with gzip. RAW files can be parsed only under windows and if the appropriate libraries were included at compile time. Multiple files can be included on the command line (space delimited), prior to the name of the database.</li>
   <li><code>database_name</code> &ndash; A full or relative path to the sequence database, in FASTA or PEFF format, to search. Example databases include RefSeq or UniProt.  The database can contain amino acid sequences or nucleic acid sequences. If sequences are amino acid sequences, set the parameter "nucleotide_reading_frame = 0". If the sequences are nucleic acid sequences, you must instruct Comet to translate these to amino acid sequences. Do this by setting nucleotide_reading_frame" to a value between 1 and 9.</li>
 </ul>
 <h2>Output:</h2>
