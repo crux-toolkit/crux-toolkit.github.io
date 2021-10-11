@@ -59,12 +59,12 @@
       # Read commit number from file.
       $version = chop(file_get_contents("daily/latest-build.txt"));
       $FileNameBaseArray = array(
-        "Source" => "crux-4.0.$version.Source.tar.gz",
-        "Linux32" => "crux-4.0.$version.Linux.i686.zip",
-        "Linux64" => "crux-4.0.$version.Linux.x86_64.zip",
-        "OSX" => "crux-4.0.$version.Darwin.x86_64.zip",
-        "Windows64" => "crux-4.0.$version.Windows.AMD64.zip",
-        "Windows32" => "crux-4.0.$version.Windows.i386.zip",
+        "Source" => "crux-4.1.$version.Source.tar.gz",
+        "Linux32" => "crux-4.1.$version.Linux.i686.zip",
+        "Linux64" => "crux-4.1.$version.Linux.x86_64.zip",
+        "OSX" => "crux-4.1.$version.Darwin.x86_64.zip",
+        "Windows64" => "crux-4.1.$version.Windows.AMD64.zip",
+        "Windows32" => "crux-4.1.$version.Windows.i386.zip",
       );
       $directory = "daily/";
     }
