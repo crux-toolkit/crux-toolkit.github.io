@@ -247,6 +247,7 @@
   <li class="nobullet"><code>--use_X_ions &lt;integer&gt;</code> &ndash; Controls whether or not X-ions are considered in the search (0 - no, 1 - yes). Default = <code>0</code>.</li>
   <li class="nobullet"><code>--use_Y_ions &lt;integer&gt;</code> &ndash; Controls whether or not Y-ions are considered in the search (0 - no, 1 - yes). Default = <code>1</code>.</li>
   <li class="nobullet"><code>--use_Z_ions &lt;integer&gt;</code> &ndash; Controls whether or not Z-ions are considered in the search (0 - no, 1 - yes). Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--use_Z1_ions &lt;integer&gt;</code> &ndash; Controls whether or not Z1-ions are considered in the search (0 - no, 1 - yes). Default = <code>0</code>.</li>
   <li class="nobullet"><code>--use_NL_ions &lt;integer&gt;</code> &ndash; 0=no, 1= yes to consider NH3/H2O neutral loss peak. Default = <code>1</code>.</li>
 </ul>
 </li>
@@ -257,28 +258,33 @@
   <li class="nobullet"><code>--precursor_charge &lt;string&gt;</code> &ndash; Precursor charge range to analyze; does not override mzXML charge; 0 as first entry ignores parameter. Default = <code>0 0</code>.</li>
   <li class="nobullet"><code>--override_charge &lt;integer&gt;</code> &ndash; Specifies the whether to override existing precursor charge state information when present in the files with the charge range specified by the "precursor_charge" parameter. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--ms_level &lt;integer&gt;</code> &ndash; MS level to analyze, valid are levels 2 or 3. Default = <code>2</code>.</li>
-  <li class="nobullet"><code>--activation_method ALL|CID|ECD|ETD|PQD|HCD|IRMPD</code> &ndash; Specifies which scan types are searched. Default = <code>ALL</code>.</li>
+  <li class="nobullet"><code>--activation_method ALL|CID|ECD|ETD+SA|ETD|PQD|HCD|IRMPD</code> &ndash; Specifies which scan types are searched. Default = <code>ALL</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
 <h3>Miscellaneous parameters</h3>
 <ul>
-  <li class="nobullet"><code>--digest_mass_range &lt;string&gt;</code> &ndash; MH+ peptide mass range to analyze. Default = <code>600.0 5000.0</code>.</li>
-  <li class="nobullet"><code>--num_results &lt;integer&gt;</code> &ndash; Number of search hits to store internally. Default = <code>50</code>.</li>
-  <li class="nobullet"><code>--skip_researching &lt;integer&gt;</code> &ndash; For '.out' file output only, 0=search everything again, 1=don't search if .out exists. Default = <code>1</code>.</li>
-  <li class="nobullet"><code>--max_fragment_charge &lt;integer&gt;</code> &ndash; Set maximum fragment charge state to analyze (allowed max 5). Default = <code>3</code>.</li>
-  <li class="nobullet"><code>--max_index_runtime &lt;integer&gt;</code> &ndash; Sets the maximum indexed database search run time for a scan/query. Valid values are integers 0 or higher representing the maximum run time in milliseconds. As Comet loops through analyzing peptides from the database index file, it checks the cummulative run time of that spectrum search after each peptide is analyzed. If the run time exceeds the value set for this parameter, the search is aborted and the best peptide result analyzed up to that point is returned. To have no maximum search time, set this parameter value to "0". The default value is "0". Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--max_precursor_charge &lt;integer&gt;</code> &ndash; Set maximum precursor charge state to analyze (allowed max 9). Default = <code>6</code>.</li>
-  <li class="nobullet"><code>--nucleotide_reading_frame &lt;integer&gt;</code> &ndash; 0=proteinDB, 1-6, 7=forward three, 8=reverse three, 9=all six. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--clip_nterm_methionine &lt;integer&gt;</code> &ndash; 0=leave sequences as-is; 1=also consider sequence w/o N-term methionine. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--spectrum_batch_size &lt;integer&gt;</code> &ndash; Maximum number of spectra to search at a time; 0 to search the entire scan range in one loop. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--decoy_prefix &lt;string&gt;</code> &ndash; Specifies the prefix of the protein names that indicates a decoy. Default = <code>decoy_</code>.</li>
-  <li class="nobullet"><code>--output_suffix &lt;string&gt;</code> &ndash; Specifies the suffix string that is appended to the base output name for the pep.xml, pin.xml, txt and sqt output files. Default = <code>&lt;empty&gt;</code>.</li>
-  <li class="nobullet"><code>--peptide_length_range &lt;string&gt;</code> &ndash; Defines the length range of peptides to search. This parameter has two integer values. The first value is the minimum length cutoff and the second value is the maximum length cutoff. Only peptides within the specified length range are analyzed. The maximum peptide length that Comet can analyze is 63. The default values are "1 63". Default = <code>1 63</code>.</li>
-  <li class="nobullet"><code>--precursor_NL_ions &lt;string&gt;</code> &ndash; Controls whether or not precursor neutral loss peaks are considered in the xcorr scoring. If left blank, this parameter is ignored.  To consider precursor neutral loss peaks, add one or more neutral loss mass value separated by a space.  Each entered mass value will be subtracted from the experimentral precursor mass and resulting neutral loss m/z values for all charge states (from 1 to precursor charge) will be analyzed. As these neutral loss peaks are analyzed along side fragment ion peaks, the fragment tolerance settings (fragment_bin_tol, fragment_bin_offset, theoretical_fragment_ion) apply to the precursor neutral loss peaks. The default value is blank/unused. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--digest_mass_range &lt;string&gt;</code> &ndash; MH+ peptide mass range to analyze. Default = <code>600.0 5000.0</code>.</li>
   <li class="nobullet"><code>--equal_I_and_L &lt;integer&gt;</code> &ndash; This parameter controls whether the Comet treats isoleucine (I) and leucine (L) as the same/equivalent with respect to a peptide identification. 0 treats I and L as different, 1 treats I and L as the same. The default value is "1" Default = <code>1</code>.</li>
   <li class="nobullet"><code>--mass_offsets &lt;string&gt;</code> &ndash; Specifies one or more mass offsets to apply. This value(s) are effectively subtracted from each precursor mass such that peptides that are smaller than the precursor mass by the offset value can still be matched to the respective spectrum. Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--max_duplicate_proteins &lt;integer&gt;</code> &ndash; defines the maximum number of proteins (identifiers/accessions) to report. If a peptide is present in 6 total protein sequences, there is one (first) reference protein and 5 additional duplicate proteins. This parameter controls how many of those 5 additional duplicate proteins are reported.If "decoy_search = 2" is set to report separate target and decoy results, this parameter will be applied to the target and decoy outputs separately. If set to "-1", there will be no limit on the number of reported additional proteins. The default value is "20" if this parameter is missing. Default = <code>20</code>.</li>
+  <li class="nobullet"><code>--max_fragment_charge &lt;integer&gt;</code> &ndash; Set maximum fragment charge state to analyze (allowed max 5). Default = <code>3</code>.</li>
+  <li class="nobullet"><code>--max_index_runtime &lt;integer&gt;</code> &ndash; Sets the maximum indexed database search run time for a scan/query. Valid values are integers 0 or higher representing the maximum run time in milliseconds. As Comet loops through analyzing peptides from the database index file, it checks the cummulative run time of that spectrum search after each peptide is analyzed. If the run time exceeds the value set for this parameter, the search is aborted and the best peptide result analyzed up to that point is returned. To have no maximum search time, set this parameter value to "0". The default value is "0". Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--max_precursor_charge &lt;integer&gt;</code> &ndash; Set maximum precursor charge state to analyze (allowed max 9). Default = <code>6</code>.</li>
+  <li class="nobullet"><code>--num_results &lt;integer&gt;</code> &ndash; Number of search hits to store internally. Default = <code>50</code>.</li>
+  <li class="nobullet"><code>--nucleotide_reading_frame &lt;integer&gt;</code> &ndash; 0=proteinDB, 1-6, 7=forward three, 8=reverse three, 9=all six. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--output_suffix &lt;string&gt;</code> &ndash; Specifies the suffix string that is appended to the base output name for the pep.xml, pin.xml, txt and sqt output files. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--peptide_length_range &lt;string&gt;</code> &ndash; Defines the length range of peptides to search. This parameter has two integer values. The first value is the minimum length cutoff and the second value is the maximum length cutoff. Only peptides within the specified length range are analyzed. The maximum peptide length that Comet can analyze is 63. The default values are "1 63". Default = <code>1 63</code>.</li>
+  <li class="nobullet"><code>--precursor_NL_ions &lt;string&gt;</code> &ndash; Controls whether or not precursor neutral loss peaks are considered in the xcorr scoring. If left blank, this parameter is ignored.  To consider precursor neutral loss peaks, add one or more neutral loss mass value separated by a space.  Each entered mass value will be subtracted from the experimentral precursor mass and resulting neutral loss m/z values for all charge states (from 1 to precursor charge) will be analyzed. As these neutral loss peaks are analyzed along side fragment ion peaks, the fragment tolerance settings (fragment_bin_tol, fragment_bin_offset, theoretical_fragment_ion) apply to the precursor neutral loss peaks. The default value is blank/unused. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--skip_researching &lt;integer&gt;</code> &ndash; For '.out' file output only, 0=search everything again, 1=don't search if .out exists. Default = <code>1</code>.</li>
+  <li class="nobullet"><code>--spectrum_batch_size &lt;integer&gt;</code> &ndash; Maximum number of spectra to search at a time; 0 to search the entire scan range in one loop. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--text_file_extension &lt;string&gt;</code> &ndash; Specifies the a custom extension for output text file. Default = <code>&lt;empty&gt;</code>.</li>
+  <li class="nobullet"><code>--explicit_deltacn &lt;integer&gt;</code> &ndash; 0=Comet deltaCn reported between the top peptide and the first dissimilar peptide;
+1=Comet deltaCn reported between the top two peptides. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--old_mods_encoding &lt;integer&gt;</code> &ndash; 0=Comet will use mass based modification encodings;
+1=Comet will use the old character based modification encodings. Default = <code>0</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -316,7 +322,6 @@
   <li class="nobullet"><code>--add_Cterm_protein &lt;float&gt;</code> &ndash; Specify a static modification to the c-terminal peptide of each protein. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_Nterm_protein &lt;float&gt;</code> &ndash; Specify a static modification to the n-terminal peptide of each protein. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_A_alanine &lt;float&gt;</code> &ndash; Specify a static modification to the residue A. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--add_B_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue B. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_C_cysteine &lt;float&gt;</code> &ndash; Specify a static modification to the residue C. Default = <code>57.021464</code>.</li>
   <li class="nobullet"><code>--add_D_aspartic_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue D. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_E_glutamic_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue E. Default = <code>0</code>.</li>
@@ -324,12 +329,11 @@
   <li class="nobullet"><code>--add_G_glycine &lt;float&gt;</code> &ndash; Specify a static modification to the residue G. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_H_histidine &lt;float&gt;</code> &ndash; Specify a static modification to the residue H. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_I_isoleucine &lt;float&gt;</code> &ndash; Specify a static modification to the residue I. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--add_J_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue J. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_K_lysine &lt;float&gt;</code> &ndash; Specify a static modification to the residue K. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_L_leucine &lt;float&gt;</code> &ndash; Specify a static modification to the residue L. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_M_methionine &lt;float&gt;</code> &ndash; Specify a static modification to the residue M. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_N_asparagine &lt;float&gt;</code> &ndash; Specify a static modification to the residue N. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--add_O_ornithine &lt;float&gt;</code> &ndash; Specify a static modification to the residue O. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--add_O_pyrrolysine &lt;float&gt;</code> &ndash; Specify a static modification to the residue O. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_P_proline &lt;float&gt;</code> &ndash; Specify a static modification to the residue P. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_Q_glutamine &lt;float&gt;</code> &ndash; Specify a static modification to the residue Q. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_R_arginine &lt;float&gt;</code> &ndash; Specify a static modification to the residue R. Default = <code>0</code>.</li>
@@ -338,8 +342,10 @@
   <li class="nobullet"><code>--add_U_selenocysteine &lt;float&gt;</code> &ndash; Specify a static modification to the residue U. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_V_valine &lt;float&gt;</code> &ndash; Specify a static modification to the residue V. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_W_tryptophan &lt;float&gt;</code> &ndash; Specify a static modification to the residue W. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--add_X_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue X. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_Y_tyrosine &lt;float&gt;</code> &ndash; Specify a static modification to the residue Y. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--add_B_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue B. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--add_J_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue J. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--add_X_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue X. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_Z_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue Z. Default = <code>0</code>.</li>
 </ul>
 </li>
@@ -419,11 +425,12 @@
   <li class="nobullet"><code>--txt-output T|F</code> &ndash; Output a tab-delimited results file to the output directory. Default = <code>true</code>.</li>
   <li class="nobullet"><code>--brief-output T|F</code> &ndash; Output in tab-delimited text only the file name, scan number, charge, score and peptide.Incompatible with mzid-output=T, pin-output=T, pepxml-output=T or txt-output=F. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--use-z-line T|F</code> &ndash; Specify whether, when parsing an MS2 spectrum file, Crux obtains the precursor mass information from the "S" line or the "Z" line.  Default = <code>true</code>.</li>
-  <li class="nobullet"><code>--output_sqtstream &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--output_sqtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--output_txtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write tab-delimited text file. Default = <code>1</code>.</li>
+  <li class="nobullet"><code>--output_mzidentmlfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write mzIdentML file. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--output_pepxmlfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write pep.xml file. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--output_percolatorfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes write percolator file. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--output_sqtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--output_sqtstream &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write sqt file. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--output_txtfile &lt;integer&gt;</code> &ndash; 0=no, 1=yes  write tab-delimited text file. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--print_expect_score &lt;integer&gt;</code> &ndash; 0=no, 1=yes to replace Sp with expect in out & sqt. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--num_output_lines &lt;integer&gt;</code> &ndash; num peptide results to show. Default = <code>5</code>.</li>
   <li class="nobullet"><code>--show_fragment_ions &lt;integer&gt;</code> &ndash; 0=no, 1=yes for out files only. Default = <code>0</code>.</li>
