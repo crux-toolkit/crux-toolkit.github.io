@@ -112,39 +112,53 @@
 					</tr>
 					<tr>
 						<td>file</td>	
-						<td></td>
+						<td>The name of the file containing the scan.</td>
 						</tr>
 						<tr>
 						<td>scan</td>	
-						<td></td>
+						<td>The identifying number of each scan.</td>
 						</tr>
 						<tr>
 						<td>charge</td>	
-						<td></td>
+						<td>The charge state for this spectrum in this PSM.</td>
 						</tr>
 						<tr>
 						<td>spectrum precursor m/z</td>	
-						<td></td>
+						<td>The observed m/z of the spectrum precursor ion.</td>
 						</tr>
 						<tr>
 						<td>spectrum neutral mass</td>
-						<td></td>
+						<td>The computed mass of the spectrum precursor at the given charge
+							state. This is equal to the precursor m/z minus the mass of a proton
+							(1.00727646677 Da), all multiplied by the charge.</td>
 						</tr>
 						<tr>
 						<td>peptide mass</td>	
-						<td></td>
+						<td>The mass of the peptide sequence, computed as the sum of the
+							amino acid masses plus the mass of water (18.010564684 Da or
+							18.0153 Da, depending on whether we are using monoisotopic or
+							average mass).</td>
 						</tr>
 						<tr>
 						<td>delta_cn</td>
-						<td></td>	
+						<td>The normalized difference in XCorr for this PSM
+							relative to the next ranked PSM for the same spectrum
+							and charge. The denominator for normalization is the
+							maximum of the current XCorr and 1.0.
+							If <code>exact-p-value=T</code>, then the difference
+							is computed between -log(p-value) rather than XCorr,
+							and no normalization is applied.</td>	
 						</tr>
 						<tr>
 						<td>delta_lcn</td>
-						<td></td>	
+						<td>Similar to delta_cn, except that the difference
+							is computed with respect to the lowest reported XCorr
+							score for a given spectrum and charge state.</td>	
 						</tr>
 						<tr>
 						<td>xcorr score	</td>
-						<td></td>
+						<td>The SEQUEST-type cross correlation score.
+							This column only appears when <code>exact-p-value=F</code>.</td>
 						</tr>
 						<tr>
 						<td>tailor score</td>
@@ -152,47 +166,53 @@
 						</tr>
 						<tr>	
 						<td>xcorr rank</td>	
-						<td></td>
+						<td>The rank of this PSM when sorted by xcorr.</td>
 						</tr>
 						<tr>
 						<td>distinct matches/spectrum</td>	
-						<td></td>
+						<td>The number of unique candidate peptides in the database found for this
+							spectrum.  Note that this is always the number of target candidate
+							peptides, even if the PSM involves a decoy peptide.</td>
 						</tr>
 						<tr>
 						<td>sequence</td>	
-						<td></td>
+						<td>The peptide sequence, not including any modifications.</td>
 						</tr>
 						<tr>
 						<td>modifications</td>
-						<td></td>	
+						<td>Variable modifications applied to the sequence.</td>	
 						</tr>
 						<tr>
 						<td>cleavage type</td>	
-						<td></td>
+						<td>The cleavage rules for generating this peptide based on the
+							user-specified enzyme specificity.</td>
 						</tr>
 						<tr>
 						<td>protein id</td>	
-						<td></td>
+						<td>A comma-separated list of proteins in which this peptide
+							appears. Optionally, the protein name may be followed by a number
+							in parentheses giving the start position of the peptide in the
+							protein.</td>
 						</tr>
 						</tr>
 						<td>flanking aa	</td>
-						<td></td>
+						<td>The amino acids that precede and follow this
+							peptide in the parent protein ID.  If the peptide
+							occurs in more than one protein, then this column
+							will contain a comma-separated list of pairs of amino
+							acids.</td>
 						</tr>
 						<tr>
 						<td>target/decoy</td>	
 						<td></td>
 						</tr>
 						<tr>
-						<td>original </td>
-						<td></td>
-						</tr>
-						<tr>
-						<td>target</td>
-						<td></td>
-						</tr>
-						<tr> 
-						<td>sequence</td>
-						<td></td>
+						<td>original target sequence</td>
+						<td>The unmodified target sequence. For a target PSM,
+							the value in this column will be identical to the
+							value in the "sequence" column.  For a decoy PSM,
+							this column will contain the corresponding target
+							sequence.</td>
 						</tr>
 
 				</table> 
