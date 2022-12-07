@@ -268,6 +268,300 @@ In the example, max_per_peptide is 1, residues are STY, and mass_change is +79.9
 						<td> Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = 30.</td>
 					</tr>
 				</table> 
+				<p>tide-search Meta Data Section</p>
+				<table border="1" id="tabformat">
+					<!-- table headers-->
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>use-tailor-calibration T|F </td>
+						<td>Fast, but heuristic PSM score calibration as described in <a href="https://pubmed.ncbi.nlm.nih.gov/32175744/">this article</a>. Default = <code>false</code>.</td>
+					</tr>
+					<tr>
+						<td>mod-precision &lt;integer&gt;</td>
+						<td>
+							Set the precision for modifications as written to .txt files. Default = 2
+						</td>
+					</td>
+					<tr>
+						<td>auto-precursor-window false|warn|fail</td>
+						<td>
+							Automatically estimate optimal value for the precursor-window parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = false.
+						</td>
+					</tr>
+					<tr>
+						<td>max-precursor-charge &lt;integer&gt;</td>
+						<td>
+							The maximum charge state of a spectra to consider in search. Default = 5.
+						</td>
+					</tr>
+					<tr>
+						<td>precursor-window &lt;float&gt;</td>
+						<td> Tolerance used for matching peptides to spectra. Peptides must be within +/- 'precursor-window' of the spectrum value. The precursor window units depend upon precursor-window-type. Default = 50.</td>
+					</tr>
+					<tr>
+						<td>
+							precursor-window-type mass|mz|ppm
+						</td>
+						<td>
+							Specify the units for the window that is used to select peptides around the precursor mass location (mass, mz, ppm). The magnitude of the window is defined by the precursor-window option, and candidate peptides must fall within this window. For the mass window-type, the spectrum precursor m+h value is converted to mass, and the window is defined as that mass +/- precursor-window. If the m+h value is not available, then the mass is calculated from the precursor m/z and provided charge. The peptide mass is computed as the sum of the monoisotopic amino acid masses plus 18 Da for the terminal OH group. The mz window-type calculates the window as spectrum precursor m/z +/- precursor-window and then converts the resulting m/z range to the peptide mass range using the precursor charge. For the parts-per-million (ppm) window-type, the spectrum mass is calculated as in the mass type. The lower bound of the mass window is then defined as the spectrum mass / (1.0 + (precursor-window / 1000000)) and the upper bound is defined as spectrum mass / (1.0 - (precursor-window / 1000000)). Default = ppm.
+
+						</td>
+					</tr>
+					<tr>
+						<td>auto-mz-bin-width false|warn|fail</td>
+						<td>Automatically estimate optimal value for the mz-bin-width parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = false.</td>
+					</tr>
+					<tr>
+						<td>compute-sp T|F</td>
+						<td>Compute the preliminary score Sp for all candidate peptides. Report this score in the output, along with the corresponding rank, the number of matched ions and the total number of ions. This option is recommended if results are to be analyzed by Percolator.If sqt-output is enabled, then compute-sp is automatically enabled and cannot be overridden. Note that the Sp computation requires re-processing each observed spectrum, so turning on this switch involves significant computational overhead. Default = false.</td>
+					</tr>
+					<tr>
+						<td>deisotope&lt;float&gt;</td>
+						<td>Perform a simple deisotoping operation across each MS2 spectrum. For each peak in an MS2 spectrum, consider lower m/z peaks. If the current peak occurs where an expected peak would lie for any charge state less than the charge state of the precursor, within mass tolerance, and if the current peak is of lower abundance, then the peak is removed. The value of this parameter is the mass tolerance, in units of parts-per-million. If set to 0, no deisotoping is performed. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>exact-p-value T|F</td>
+						<td>Enable the calculation of exact p-values for the XCorr score as described in this article. Calculation of p-values increases the running time but increases the number of identifications at a fixed confidence threshold. The p-values will be reported in a new column with header "exact p-value", and the "xcorr score" column will be replaced with a "refactored xcorr" column. Note that, currently, p-values can only be computed when the mz-bin-width parameter is set to its default value. Variable and static mods are allowed on non-terminal residues in conjunction with p-value computation, but currently only static mods are allowed on the N-terminus, and no mods on the C-terminus. Default = false.</td>
+					</tr>
+					<tr>
+						<td>isotope-error &lt;string&gt;</td>
+						<td>List of positive, non-zero integers. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>min-peaks&lt;integer&gt;</td>
+						<td>The minimum number of peaks a spectrum must have for it to be searched. Default = 20.</td>
+					</tr>
+					<tr>
+						<td>
+							mz-bin-offset&lt;float&gt;
+						</td>
+						<td>
+							In the discretization of the m/z axes of the observed and theoretical spectra, this parameter specifies the location of the left edge of the first bin, relative to mass = 0 (i.e., mz-bin-offset = 0.xx means the left edge of the first bin will be located at +0.xx Da). Default = 0.4.
+						</td>
+					</tr>
+					<tr>
+						<td>mz-bin-width&lt;float&gt;</td>
+						<td>
+							Before calculation of the XCorr score, the m/z axes of the observed and theoretical spectra are discretized. This parameter specifies the size of each bin. The exact formula for computing the discretized m/z value is floor((x/mz-bin-width) + 1.0 - mz-bin-offset), where x is the observed m/z value. For low resolution ion trap ms/ms data 1.0005079 and for high resolution ms/ms 0.02 is recommended. Default = 0.02.
+						</td>
+					</tr>
+					<tr>
+						<td>peptide-centric-search T|F</td>
+						<td>Carries out a peptide-centric search. For each peptide the top-scoring spectra are reported, in contrast to the standard spectrum-centric search where the top-scoring peptides are reported. Note that in this case the "xcorr rank" column will contain the rank of the given spectrum with respect to the given candidate peptide, rather than vice versa (which is the default). Default = false.</td>
+					</tr>
+					<tr>
+						<td>score-function xcorr|residue-evidence|both </td>
+						<td> Function used for scoring PSMs. 'xcorr' is the original scoring function used by SEQUEST; 'residue-evidence' is designed to score high-resolution MS2 spectra; and 'both' calculates both scores. The latter requires that exact-p-value=T. Default = xcorr.</td>
+					</tr>
+					<tr>
+						<td>fragment-tolerance&lt;float&gt;</td>
+						<td> Mass tolerance (in Da) for scoring pairs of peaks when creating the residue evidence matrix. This parameter only makes sense when score-function is 'residue-evidence' or 'both'. Default = 0.02.</td>
+					</tr>
+					<tr>
+						<td>evidence-granularity&lt;integer&gt;</td>
+						<td>This parameter controls the granularity of the entries in the dynamic programming matrix used in residue-evidence scoring.Smaller values make the program run faster but give less accurate p-values; larger values make the program run more slowly but give more accurate p-values. Default = 25.</td>
+					</tr>
+					<tr>
+						<td>remove-precursor-peak T|F </td>
+						<td> If true, all peaks around the precursor m/z will be removed, within a range specified by the --remove-precursor-tolerance option. Default = false.</td>
+					</tr>
+					<tr>
+						<td>remove-precursor-tolerance &lt;float&gt;</td>
+						<td>This parameter specifies the tolerance (in Th) around each precursor m/z that is removed when the --remove-precursor-peak option is invoked. Default = 1.5.</td>
+					</tr>
+					<tr>
+						<td>scan-number &lt;string&gt;</td>
+						<td> A single scan number or a range of numbers to be searched. Range should be specified as 'first-last' which will include scans 'first' and 'last'. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>skip-preprocessing T|F</td>
+						<td>Skip preprocessing steps on spectra. Default = F. Default = false.</td>
+					</tr>
+					<tr>
+						<td>spectrum-charge 1|2|3|all</td>
+						<td>The spectrum charges to search. With 'all' every spectrum will be searched and spectra with multiple charge states will be searched once at each charge state. With 1, 2, or 3 only spectra with that charge state will be searched. Default = all.</td>
+					</tr>
+					<tr>
+						<td>spectrum-max-mz &lt;float&gt;</td>
+						<td>The highest spectrum m/z to search in the ms2 file. Default = 1e+09.</td>
+					</tr>
+					<tr>
+						<td>spectrum-min-mz &lt;float&gt;</td>
+						<td>The lowest spectrum m/z to search in the ms2 file. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>use-flanking-peaks T|F</td>
+						<td> Include flanking peaks around singly charged b and y theoretical ions. Each flanking peak occurs in the adjacent m/z bin and has half the intensity of the primary peak. Default = false.</td>
+					</tr>
+					<tr>
+						<td>use-neutral-loss-peaks T|F</td>
+						<td> Controls whether neutral loss ions are considered in the search. For XCorr, the loss of ammonia (NH3, 17.0086343 Da) is applied to singly charged b- and y-ions, and the loss of water (H2O; 18.0091422) is applied to b-ions. If the precursor charge is >=3, then a doubly-charged version of each ion is added. For XCorr p-value, three types of neutral losses are included. Loss of ammonia and water are applied to b- and y-ions, and a carbon monoxide loss (CO, 27.9949) is also applied to b-ions. Higher charge fragments are included for all possible charges less than the precursor charge. All neutral loss peaks have an intensity 1/10 of the primary peak. Neutral losses are not yet implemented for the res-ev score function. Default = true.</td>
+					</tr>
+					<tr>
+						<td>num-threads &lt;integer&gt;</td>
+						<td>0=poll CPU to set num threads; else specify num threads directly. Default = 1.</td>
+					</tr>
+					<tr>
+						<td>pm-charges &lt;string&gt;</td>
+						<td> Precursor charge states to consider MS/MS spectra from, in measurement error estimation, provided as comma-separated values. Default = 0,2,3,4.</td>
+					</tr>
+					<tr>
+						<td>
+							pm-max-frag-mz &lt;float&gt;
+						</td>
+						<td>
+							Maximum fragment m/z value to use in measurement error estimation. Default = 1800.
+						</td>
+					</tr>
+					<tr>
+						<td>pm-max-precursor-delta-ppm &lt;float&gt;</td>
+						<td>Maximum ppm distance between precursor m/z values to consider two scans potentially generated by the same peptide for measurement error estimation. Default = 50.</td>
+					</tr>
+					<tr>
+						<td>pm-max-precursor-mz &lt;float&gt;</td>
+						<td> Minimum precursor m/z value to use in measurement error estimation. Default = 1800.</td>
+					</tr>
+					<tr>
+						<td>
+							pm-max-scan-separation &lt;integer&gt;
+						</td>
+						<td> Maximum number of scans two spectra can be separated by in order to be considered potentially generated by the same peptide, for measurement error estimation. Default = 1000.</td>
+					</tr>
+					<tr>
+						<td>pm-min-common-frag-peaks &lt;integer&gt;</td>
+						<td> Number of the most-intense peaks that two spectra must share in order to potentially be generated by the same peptide, for measurement error estimation. Default = 20.</td>
+					</tr>
+					<tr>
+						<td>pm-min-frag-mz &lt;float&gt;</td>
+						<td>Minimum fragment m/z value to use in measurement error estimation. Default = 150.</td>
+					</tr>
+					<tr>
+						<td>pm-min-peak-pairs &lt;integer&gt;</td>
+						<td> Minimum number of peak pairs (for precursor or fragment) that must be successfully paired in order to attempt to estimate measurement error distribution. Default = 200.</td>
+					</tr>
+					<tr>
+						<td>pm-min-precursor-mz &lt;float&gt;</td>
+						<td>Minimum precursor m/z value to use in measurement error estimation. Default = 400.</td>
+					</tr>
+					<tr>
+						<td>pm-min-scan-frag-peaks &lt;integer&gt;</td>
+						<td> Minimum fragment peaks an MS/MS scan must contain to be used in measurement error estimation. Default = 40.</td>
+					</tr>
+					<tr>
+						<td>pm-pair-top-n-frag-peaks &lt;integer&gt;</td>
+						<td>Number of fragment peaks per spectrum pair to be used in fragment error estimation. Default = 5</td>
+					</tr>
+					<tr>
+						<td>pm-top-n-frag-peaks &lt;integer&gt;</td>
+						<td>Number of most-intense fragment peaks to consider for measurement error estimation, per MS/MS spectrum. Default = 30.</td>
+					</tr>
+					<tr>
+						<td>concat T|F</td>
+						<td> When set to T, target and decoy search results are reported in a single file, and only the top-scoring N matches (as specified via --top-match) are reported for each spectrum, irrespective of whether the matches involve target or decoy peptides. Default = false.</td>
+					</tr>
+					<tr>
+						<td>file-column T|F</td>
+						<td> Include the file column in tab-delimited output. Default = true.</td>
+					</tr>
+					<tr>
+						<td>fileroot &lt;string&gt;</td>
+						<td>The fileroot string will be added as a prefix to all output file names. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>mass-precision &lt;integer&gt;</td>
+						<td> Set the precision for masses and m/z written to sqt and text files. Default = 4.</td>
+					</tr>
+					<tr>
+						<td>mzid-output T|F</td>
+						<td>Output an mzIdentML results file to the output directory. Default = false.</td>
+					</tr>
+					<tr>
+						<td>output-dir &lt;string&gt;</td>
+						<td>The name of the directory where output files will be created. Default = crux-output.</td>
+					</tr>
+					<tr>
+						<td>overwrite T|F </td>
+						<td> Replace existing files if true or fail when trying to overwrite a file if false. Default = false.</td>
+					</tr>
+					<tr>
+						<td>parameter-file &lt;string&gt;</td>
+						<td>A file containing parameters.  See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = <code>&lt;empty&gt;</code>.</td>
+					</tr>
+					<tr>
+						<td>pepxml-output T|F</td>
+						<td>Output a pepXML results file to the output directory. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							pin-output T|F
+						</td>
+						<td>
+							Output a Percolator input (PIN) file to the output directory. Default = false.
+						</td>
+					</tr>
+					<tr>
+						<td>precision &lt;integer&gt;</td>
+						<td> Set the precision for scores written to sqt and text files. Default = 8.</td>
+					</tr>
+					<tr>
+						<td>
+							print-search-progress &lt;integer&gt;
+						</td>
+						<td>Show search progress by printing every n spectra searched. Set to 0 to show no search progress. Default = 1000</td>
+					</tr>
+					<tr>
+						<td>
+							spectrum-parser pwiz|mstoolkit
+						</td>
+						<td>Specify the parser to use for reading in MS/MS spectra. The default, ProteoWizard parser can read the MS/MS file formats listed here. The alternative is MSToolkit parser. If the ProteoWizard parser fails to read your files properly, you may want to try the MSToolkit parser instead. Default = pwiz.</td>
+					</tr>
+					<tr>
+						<td>
+							sqt-output T|F
+						</td>
+						<td>Outputs an SQT results file to the output directory. Note that if sqt-output is enabled, then compute-sp is automatically enabled and cannot be overridden. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							store-index &lt;string&gt;
+						</td>
+						<td>Specify the name of the file where the binarized fragmentation spectra will be stored. Subsequent runs of crux tide-search will execute more quickly if provided with the spectra in binary format. The filename is specified relative to the current working directory, not the Crux output directory (as specified by --output-dir). This option is not valid if multiple input spectrum files are given. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>
+							top-match &lt;integer&gt;
+						</td>
+						<td>Specify the number of matches to report for each spectrum. Default = 5.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							txt-output T|F
+						</td>
+						<td> Output a tab-delimited results file to the output directory. Default = true.</td>
+					</tr>
+					<tr>
+						<td>
+							brief-output T|F
+						</td>
+						<td>Output in tab-delimited text only the file name, scan number, charge, score and peptide.Incompatible with mzid-output=T, pin-output=T, pepxml-output=T or txt-output=F. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							use-z-line T|F
+						</td>
+						<td> Specify whether, when parsing an MS2 spectrum file, Crux obtains the precursor mass information from the "S" line or the "Z" line. Default = true.</td>
+					</tr>
+					<tr>
+						<td>
+							verbosity &lt;integer&gt;
+						</td>
+						<td>Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = 30.</td>
+					</tr>
+				</table>
 				<p>Protein Section</p>
 				<table border="1" id="tabformat">
 					<!-- table headers-->
