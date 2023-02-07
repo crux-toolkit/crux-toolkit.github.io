@@ -1,0 +1,49 @@
+name: update-usage-statistics
+
+on:
+  push:
+    branches: master
+  workflow_dispatch:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build-update-usage-statistics:
+    runs-on: ubuntu-latest
+
+    steps:
+  
+      - name: checkout-repository    
+        uses: actions/checkout@v3
+ 
+      - name: add-short-sha
+        shell: bash
+        run: |
+          echo "git_short_sha=`git rev-parse --short HEAD`"  >> $GITHUB_ENV
+          
+      - name: setup-python
+        uses: actions/setup-python@v4
+        with: 
+            python-version: 3.x
+            
+      - name: setup-google-api
+        shell: bash
+        run: |
+         pip install --upgrade pip
+         pip install --upgrade google-api-python-client
+         pip3 install --upgrade oauth2client
+         pip install connect
+         pip install functions
+         
+      - name: download-ga-data
+        shell: bash
+        env: 
+          GA_SECRET: ${{ secrets.GA_SECRET}}
+        run: |
+         echo "$GA_SECRET" > ga_key.txt
+         python scripts/ga-getdata.py ga_key.txt  > gaData.csv
+         git config user.name 'GitHub update-usage-statistics action'
+         git config user.email 'GitHubAction@users.noreply.github.com'
+         git commit --allow-empty-message -m '' gaData.csv
+         git push
