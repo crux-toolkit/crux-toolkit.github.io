@@ -26,7 +26,7 @@ foreach (doc ${doc_list})
     COMMAND ${CRUX_PATH} create-docs --no-analytics T ${doc}
       RESULT_VARIABLE status
       ERROR_VARIABLE error_message
-      OUTPUT_FILE "${doc}.html"
+      OUTPUT_FILE "commands/${doc}.html"
   )
   if (NOT ${status} EQUAL 0)
     message(
@@ -42,7 +42,7 @@ foreach (doc ${doc_list})
     # source doc directory.
     execute_process(
       COMMAND ${CMAKE_COMMAND} 
-        -E copy ${doc}.html ${DOC_DIR}
+        -E copy 'commands/${doc}.html' ${DOC_DIR}
         RESULT_VARIABLE status
         ERROR_VARIABLE error_message
     )
