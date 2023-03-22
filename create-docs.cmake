@@ -21,6 +21,8 @@ endif (NOT ${status} EQUAL 0)
 STRING(REGEX REPLACE "\n" ";" doc_list "${doc_list}")
 
 # Generate each document
+message(STATUS "${CMAKE_CURRENT_SOURCE_DIR}")
+message(STATUS "${CMAKE_CURRENT_BINARY_DIR}")
 foreach (doc ${doc_list})
   execute_process(
     COMMAND ${CRUX_PATH} create-docs --no-analytics T ${doc}
@@ -35,11 +37,17 @@ foreach (doc ${doc_list})
       "\nError message: ${error_message}"
       "\nCreation of documents failed."
     )
-  endif (NOT ${status} EQUAL 0)
+  endif(NOT ${status} EQUAL 0)
   message(STATUS "Created ${doc}.html")
   if (NOT ${PROJECT_SOURCE_DIR} MATCHES ${PROJECT_BINARY_DIR})
     # If building out of source copy doc files back to 
     # source doc directory.
+    message(STATUS "Copying doc files back to source doc/command directory: ${DOC_DIR}")
+    IF(EXISTS ${DOC_DIR})
+      message(STATUS "Destination directory exists")
+    ELSE()
+      message(STATUS "Destination directory doesn't exist")
+    ENDIF()
     execute_process(
       COMMAND ${CMAKE_COMMAND} 
         -E copy ${doc}.html ${DOC_DIR}
