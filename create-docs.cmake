@@ -39,7 +39,7 @@ foreach (doc ${doc_list})
     )
   endif(NOT ${status} EQUAL 0)
   message(STATUS "Created ${doc}.html")
-  if (NOT ${PROJECT_SOURCE_DIR} MATCHES ${PROJECT_BINARY_DIR})
+#  if (NOT ${PROJECT_SOURCE_DIR} MATCHES ${PROJECT_BINARY_DIR})
     # If building out of source copy doc files back to 
     # source doc directory.
     message(STATUS "Copying doc files back to source doc/command directory: ${DOC_DIR}")
@@ -62,7 +62,7 @@ foreach (doc ${doc_list})
         "\nCreation of documents failed."
       )
     endif (NOT ${status} EQUAL 0)
-  endif (NOT ${PROJECT_SOURCE_DIR} MATCHES ${PROJECT_BINARY_DIR})
+#  endif (NOT ${PROJECT_SOURCE_DIR} MATCHES ${PROJECT_BINARY_DIR})
 endforeach (doc ${doc_list})
 
 # Create the parameter table
