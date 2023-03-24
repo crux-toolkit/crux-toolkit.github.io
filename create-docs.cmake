@@ -35,7 +35,7 @@ foreach (doc ${doc_list})
       "\nError message: ${error_message}"
       "\nCreation of documents failed."
     )
-  endif(NOT ${status} EQUAL 0)
+  endif (NOT ${status} EQUAL 0)
   message(STATUS "Created ${doc}.html")
   
   # Copy file to source doc/commands directory.
