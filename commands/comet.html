@@ -97,7 +97,7 @@
   <li class="nobullet"><code>--mass_type_parent &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--mass_type_fragment &lt;integer&gt;</code> &ndash; 0=average masses, 1=monoisotopic masses. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--precursor_tolerance_type &lt;integer&gt;</code> &ndash; 0=singly charged peptide mass, 1=precursor m/z. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--isotope_error &lt;integer&gt;</code> &ndash; 0=off, 1=on -1/0/1/2/3 (standard C13 error), 2=-8/-4/0/4/8 (for +4/+8 labeling). Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--isotope_error &lt;integer&gt;</code> &ndash; 0=off, 1=0/1 (C13 error), 2=0/1/2, 3=0/1/2/3, 4=--8/-4/0/4/8 (for +4/+8 labeling), 5=-1/0/1/2/3. Default = <code>0</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -156,10 +156,8 @@
   <li class="nobullet"><code>--skip_researching &lt;integer&gt;</code> &ndash; For '.out' file output only, 0=search everything again, 1=don't search if .out exists. Default = <code>1</code>.</li>
   <li class="nobullet"><code>--spectrum_batch_size &lt;integer&gt;</code> &ndash; Maximum number of spectra to search at a time; 0 to search the entire scan range in one loop. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--text_file_extension &lt;string&gt;</code> &ndash; Specifies the a custom extension for output text file. Default = <code>&lt;empty&gt;</code>.</li>
-  <li class="nobullet"><code>--explicit_deltacn &lt;integer&gt;</code> &ndash; 0=Comet deltaCn reported between the top peptide and the first dissimilar peptide;
-1=Comet deltaCn reported between the top two peptides. Default = <code>0</code>.</li>
-  <li class="nobullet"><code>--old_mods_encoding &lt;integer&gt;</code> &ndash; 0=Comet will use mass based modification encodings;
-1=Comet will use the old character based modification encodings. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--explicit_deltacn &lt;integer&gt;</code> &ndash; 0=Comet deltaCn reported between the top peptide and the first dissimilar peptide, 1=Comet deltaCn reported between the top two peptides. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--old_mods_encoding &lt;integer&gt;</code> &ndash; 0=Comet will use mass based modification encodings, 1=Comet will use the old character based modification encodings. Default = <code>0</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
