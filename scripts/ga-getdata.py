@@ -41,7 +41,7 @@ res = analytics.reports().batchGet(
 		'filters' : [{
 		      'dimensionName':'ga:eventAction',
 		      'operator' : 'EXACT',
-		      'expressions' : ['tide-search']}]
+		      'expressions' : ['percolator']}]
 	   }]
 	 },
 	 {
@@ -59,7 +59,7 @@ res = analytics.reports().batchGet(
 row_cnt = (len(res['reports'][0]['data']['rows']))
 for i in range(0, row_cnt):
    week = res['reports'][0]['data']['rows'][i]['dimensions'][0]
-   search_cnt = res['reports'][0]['data']['rows'][i]['metrics'][0]['values'][0]
+   percolator_cnt = res['reports'][0]['data']['rows'][i]['metrics'][0]['values'][0]
    total_cnt = res['reports'][1]['data']['rows'][i]['metrics'][0]['values'][0]
-   print(','.join([week, total_cnt, search_cnt]))
+   print(','.join([week, total_cnt, percolator_cnt]))
 
