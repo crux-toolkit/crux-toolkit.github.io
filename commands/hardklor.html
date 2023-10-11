@@ -3,24 +3,13 @@
 <head>
 <title>hardklor</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<script>
-  window.MathJax = {
-    chtml: { displayAlign: 'left' },
-    options: {
-      ignoreHtmlClass: 'tex2jax_ignore',
-      processHtmlClass: 'tex2jax_process'
-    },
-    tex: {
-      autoload: {
-        color: [],
-        colorv2: ['color']
-      },
-      packages: {'[+]': ['noerrors']}
-    },
-    loader: {load: ['[tex]/noerrors']}
-  };
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+<script type="text/javascript">
+  MathJax.Hub.Config({jax: ['input/TeX','output/HTML-CSS'], displayAlign: 'left'});
+</script>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-26136956-1']);
@@ -31,7 +20,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript">
   // Main Menu
   $( document ).ready(function() {
