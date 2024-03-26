@@ -4,9 +4,24 @@
 <title>cascade-search</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" type="text/css" href="../styles.css">
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+<script>
+  window.MathJax = {
+    chtml: { displayAlign: 'left' },
+    options: {
+      ignoreHtmlClass: 'tex2jax_ignore',
+      processHtmlClass: 'tex2jax_process'
+    },
+    tex: {
+      autoload: {
+        color: [],
+        colorv2: ['color']
+      },
+      packages: {'[+]': ['noerrors']}
+    },
+    loader: {load: ['[tex]/noerrors']}
+  };
 </script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
 <script type="text/javascript">
   MathJax.Hub.Config({jax: ['input/TeX','output/HTML-CSS'], displayAlign: 'left'});
 </script>
