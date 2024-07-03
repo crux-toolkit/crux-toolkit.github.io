@@ -27,23 +27,23 @@ jobs:
         with: 
             python-version: 3.x
             
-      - name: setup-google-api
-        shell: bash
-        run: |
-         pip install --upgrade pip
-         pip install --upgrade google-api-python-client
-         pip3 install --upgrade oauth2client
-         pip install connect
-         pip install functions
+  #    - name: setup-google-api
+  #      shell: bash
+  #      run: |
+  #      pip install --upgrade pip
+  #      pip install --upgrade google-api-python-client
+  #      pip3 install --upgrade oauth2client
+  #      pip install connect
+  #      pip install functions
          
-      - name: download-ga-data
-        shell: bash
-        env: 
-          GA_SECRET: ${{ secrets.GA_SECRET}}
-        run: |
-         echo "$GA_SECRET" > ga_key.txt
-         python scripts/ga-getdata.py ga_key.txt  > gaData.csv
-         git config user.name 'GitHub update-usage-statistics action'
-         git config user.email 'GitHubAction@users.noreply.github.com'
-         git commit --allow-empty-message -m '' gaData.csv
-         git push
+  #   - name: download-ga-data
+  #     shell: bash
+  #     env: 
+  #       GA_SECRET: ${{ secrets.GA_SECRET}}
+  #     run: |
+  #      echo "$GA_SECRET" > ga_key.txt
+  #      python scripts/ga-getdata.py ga_key.txt  > gaData.csv
+  #      git config user.name 'GitHub update-usage-statistics action'
+  #      git config user.email 'GitHubAction@users.noreply.github.com'
+  #      git commit --allow-empty-message -m '' gaData.csv
+  #      git push
