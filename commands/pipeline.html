@@ -375,7 +375,8 @@
   <li class="nobullet"><code>--variable_mod09 &lt;string&gt;</code> &ndash; See syntax for variable_mod01. Default = <code>0.0 null 0 4 -1 0 0</code>.</li>
   <li class="nobullet"><code>--auto_modifications T|F</code> &ndash; Automatically infer modifications from the spectra themselves. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--max_variable_mods_in_peptide &lt;integer&gt;</code> &ndash; Specifies the total/maximum number of residues that can be modified in a peptide. Default = <code>5</code>.</li>
-  <li class="nobullet"><code>--require_variable_mod &lt;integer&gt;</code> &ndash; Controls whether the analyzed peptides must contain at least one variable modification. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--require_variable_mod 0|1</code> &ndash; Controls whether the analyzed peptides must contain at least one variable modification. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--protein_modlist_file &lt;string&gt;</code> &ndash; Specify a full or relative path to a protein modifications file. If this entry points to a modifications file, Comet will parse the modification numbers and protein strings from the file and limit the application of the specified variable modifications to the sequence entries that match the protein string. Default = <code>&lt;empty&gt;</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -411,6 +412,17 @@
   <li class="nobullet"><code>--add_J_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue J. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_X_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue X. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--add_Z_user_amino_acid &lt;float&gt;</code> &ndash; Specify a static modification to the residue Z. Default = <code>0</code>.</li>
+</ul>
+</li>
+<li class="nobullet">
+<h3>Indexing</h3>
+<ul>
+  <li class="nobullet"><code>--fragindex_skipreadprecursors &lt;integer&gt;</code> &ndash; This parameter controls whether or not Comet reads all precursors from the input files. It uses this information to limit the peptides that are included in the fragment ion index. Default = <code>0</code>.</li>
+  <li class="nobullet"><code>--fragindex_num_spectrumpeaks &lt;integer&gt;</code> &ndash; This parameter defines the number of mass/intensity pairs that would be queried against the fragment ion index Default = <code>100</code>.</li>
+  <li class="nobullet"><code>--fragindex_min_ions_score &lt;integer&gt;</code> &ndash; This parameter sets the minimum number fragment ions a peptide must match against the fragmention index in order to proceed to xcorr scoring. Default = <code>3</code>.</li>
+  <li class="nobullet"><code>--fragindex_min_ions_report &lt;integer&gt;</code> &ndash; This parameter sets the minimum number fragment ions a peptide must match against the fragment on index in order to report this peptide in the output Default = <code>3</code>.</li>
+  <li class="nobullet"><code>--fragindex_min_fragmentmass &lt;float&gt;</code> &ndash; This parameter defines the minimum fragment ion mass to include in the fragment ion index. Default = <code>200</code>.</li>
+  <li class="nobullet"><code>--fragindex_max_fragmentmass &lt;float&gt;</code> &ndash; This parameter defines the maximum fragment ion mass to include in the fragment ion index. Default = <code>2000</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
