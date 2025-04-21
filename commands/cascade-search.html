@@ -99,7 +99,6 @@
   <li class="nobullet"><code>--top-match-in &lt;integer&gt;</code> &ndash; Specify the maximum rank to allow when parsing results files. Matches with ranks higher than this value will be ignored (a value of zero allows matches with any rank). Default = <code>0</code>.</li>
   <li class="nobullet"><code>--combine-charge-states T|F</code> &ndash; Specify this parameter to T in order to combine charge states with peptide sequencesin peptide-centric search. Works only if estimation-method = peptide-level. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--combine-modified-peptides T|F</code> &ndash; Specify this parameter to T in order to treat peptides carrying different or no modifications as being the same. Works only if estimation = peptide-level. Default = <code>false</code>.</li>
-  <li class="nobullet"><code>--mztab-output T|F</code> &ndash; Output results in mzTab file to the output directory. Default = <code>false</code>.</li>
 </ul>
 </li>
 <li class="nobullet">
@@ -176,6 +175,7 @@
   <li class="nobullet"><code>--concat T|F</code> &ndash; When set to T, target and decoy search results are reported in a single file, and only the top-scoring N matches (as specified via --top-match) are reported for each spectrum, irrespective of whether the matches involve target or decoy peptides. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--mass-precision &lt;integer&gt;</code> &ndash; Set the precision for masses and m/z written to sqt and text files. Default = <code>4</code>.</li>
   <li class="nobullet"><code>--mzid-output T|F</code> &ndash; Output an mzIdentML results file to the output directory. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--mztab-output T|F</code> &ndash; Output results in mzTab file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--pepxml-output T|F</code> &ndash; Output a pepXML results file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--pin-output T|F</code> &ndash; Output a Percolator input (PIN) file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--precision &lt;integer&gt;</code> &ndash; Set the precision for scores written to sqt and text files. Default = <code>8</code>.</li>

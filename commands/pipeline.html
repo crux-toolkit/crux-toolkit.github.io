@@ -120,7 +120,6 @@
   <li class="nobullet"><code>--post-processor percolator|assign-confidence</code> &ndash; Specify which post-processor to apply to the search results. Default = <code>percolator</code>.</li>
   <li class="nobullet"><code>--memory-limit &lt;integer&gt;</code> &ndash; The maximum amount of memory (i.e., RAM), in GB, to be used by tide-index. Default = <code>4</code>.</li>
   <li class="nobullet"><code>--auto-modifications-spectra &lt;string&gt;</code> &ndash; Specify the spectra file to be used for modification inference when the auto-modifications option is enabled. Multiple files may be separated by commas. Default = <code>&lt;empty&gt;</code>.</li>
-  <li class="nobullet"><code>--mztab-output T|F</code> &ndash; Output results in mzTab file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--max-charge-feature &lt;integer&gt;</code> &ndash; Specifies the maximum charge state feature.  When set to zero, use the maximum observed charge state. Default = <code>0</code>.</li>
   <li class="nobullet"><code>--no-terminate T|F</code> &ndash; Do not stop execution when encountering questionable SVM inputs or results. "percolator.weights.txt". Default = <code>false</code>.</li>
   <li class="nobullet"><code>--protein-name-separator &lt;string&gt;</code> &ndash; Determines the character to separate the protein IDs in the tab-delimited output format  Default = <code>,</code>.</li>
@@ -491,6 +490,7 @@
   <li class="nobullet"><code>--temp-dir &lt;string&gt;</code> &ndash; The name of the directory where temporary files will be created. If this parameter is blank, then the system temporary directory will be used Default = <code>&lt;empty&gt;</code>.</li>
   <li class="nobullet"><code>--concat T|F</code> &ndash; When set to T, target and decoy search results are reported in a single file, and only the top-scoring N matches (as specified via --top-match) are reported for each spectrum, irrespective of whether the matches involve target or decoy peptides. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--mzid-output T|F</code> &ndash; Output an mzIdentML results file to the output directory. Default = <code>false</code>.</li>
+  <li class="nobullet"><code>--mztab-output T|F</code> &ndash; Output results in mzTab file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--pepxml-output T|F</code> &ndash; Output a pepXML results file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--pin-output T|F</code> &ndash; Output a Percolator input (PIN) file to the output directory. Default = <code>false</code>.</li>
   <li class="nobullet"><code>--precision &lt;integer&gt;</code> &ndash; Set the precision for scores written to sqt and text files. Default = <code>8</code>.</li>
