@@ -83,7 +83,9 @@
 <h2>Output:</h2>
 <p>The program writes files to the folder <code>crux-output</code> by default. The name of the output folder can be set by the user using the <code>--output-dir</code> option. The following files will be created:
 <ul>
-  <li><code>comet.txt</code> &ndash; a tab-delimited text file containing the target PSMs. See <a href="../file-formats/txt-format.html">txt file format</a> for a list of the fields.</li>
+  <li><code>comet.txt</code> &ndash; a tab-delimited text file containing only the target PSMs if --decoy_search 0 is given, or both target and decoy PSM if --decoy_search 1 is given (--decoy_search 0 is the default). See <a href="../file-formats/txt-format.html">txt file format</a> for a list of the fields.</li>
+  <li><code>comet.target.txt</code> &ndash; a tab-delimited text file containing only the target PSMs. This file is only generated if --decoy_search 2 is given (--decoy_search 0 is the default). See <a href="../file-formats/txt-format.html">txt file format</a> for a list of the fields.</li>
+  <li><code>comet.decoy.txt</code> &ndash; a tab-delimited text file containing only the decoy PSMs. This file is only generated if --decoy_search 2 is given (--decoy_search 0 is the default). See <a href="../file-formats/txt-format.html">txt file format</a> for a list of the fields.</li>
   <li><code>comet.params.txt</code> &ndash; a file containing the name and value of all parameters/options for the current operation. Not all parameters in the file may have been used in the operation. The resulting file can be used with the --parameter-file option for other crux programs.</li>
   <li><code>comet.log.txt</code> &ndash; a log file containing a copy of all messages that were printed to standard error.</li>
 </ul>
