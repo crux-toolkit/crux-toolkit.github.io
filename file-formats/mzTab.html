@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>mzTab File Format | Crux Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="../styles.css">
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26136956-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+	// Main Menu
+	$( document ).ready(function() {
+			var pull 		= $('.btn');
+				menu 		= $('nav ul');
+				menuHeight	= menu.height();
+
+			$(pull).on('click', function(e) {
+				e.preventDefault();
+				menu.slideToggle();
+			});
+
+			$(window).resize(function(){
+	    		var w = $(window).width();
+	    		if(w > 320 && menu.is(':hidden')) {
+	    			menu.removeAttr('style');
+	    		} 
+			});
+	});
+</script>
+</head>
+<body>
+	<div class="page-wrap">
+	 	<nav>
+			<div class="btn">
+		    </div>
+		    <img src="../images/crux-logo.png" id="logo"></a>
+			<ul id="navitems">
+			    <li><a href="../index.html">Home</a></li>
+			    <li><a href="../download.html">Download</a></li>
+			    <li><a href="../fileformats.html">File Formats</a></li>
+		        <li><a href="http://groups.google.com/group/crux-users">Contact</a></li> <!--Link to google support board-->
+		    </ul>
+		</nav>
+		<div id="content">
+		<!-- START CONTENT -->
+			<h2>mzTab  file format</h2>
+
+			<p>
+				The mzTab data exchange format is used for communicating mass-spectrometry-based proteomics and metabolomics experimental results. 
+				<cite>
+					Griss J et al.
+					The mzTab data exchange format: communicating mass-spectrometry-based proteomics and metabolomics experimental results to a wider audience. 
+					Mol Cell Proteomics. 2014 Oct;13(10):2765-75. doi: 10.1074/mcp.O113.036681. Epub 2014 Jun 30. PMID: 24980485; PMCID: PMC4189001.
+				</cite>
+				<br>
+				<br>
+				The mzTab format is a tab-delimited text file consisting of a metadata section, a protein section, 
+				a peptide section which is not recommended in "Identification" files, and a PSM section as well as a small molecule section.
+				Crux supports the mzTab format for both "Quantification" and "Identification" files.
+				Crux supports the version 1 of the mzTab format.
+				<br>
+				For a detailed explanation of the mzTab format, please see the <a href="https://github.com/HUPO-PSI/mzTab/blob/master/specification_document-releases/1_0-Proteomics-Release/mzTab_format_specification.pdf">mzTab format specification</a>
+			</p>
+			<center>
+				<p>Meta Data Section</p>
+				<table border="1" id="tabformat">
+					<!-- table headers-->
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>mzTab-version</td>
+						<td>It specificaties the mzTab version being used.</td>
+					</tr>
+					<tr>
+						<td>mzTab-mode</td>
+						<td>
+							It specifies the mode of the experiment which was conducted 
+							(either "Summary" or "Complete").
+						</td>
+					</td>
+					<tr>
+						<td>mzTab-type</td>
+						<td>
+							It specifies the type of experiment which was conducted 
+							(either "Quantification" or "Identification").
+						</td>
+					</tr>
+					<tr>
+						<td>description</td>
+						<td>
+							It contains a short description of the experiment that was conducted.
+						</td>
+					</tr>
+				</table>
+				<p>tide-index Meta Data Section</p>
+				<table border="1" id="tabformat">
+					<!-- table headers-->
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>auto-modifications-spectra &lt;string&gt;</td>
+						<td>Specify the spectra file to be used for modification inference when the auto-modifications option is enabled. Multiple files may be separated by commas. Default = (empty).</td>
+					</tr>
+					<tr>
+						<td>clip-nterm-methionine T|F </td>
+						<td>
+							When set to T, for each protein that begins with methionine, tide-index will put two copies of the leading peptide into the index, with and without the N-terminal methionine. Default = false.
+						</td>
+					</td>
+					<tr>
+						<td>isotopic-mass average|mono</td>
+						<td>
+							Specify the type of isotopic masses to use when calculating the peptide mass. Default = mono.
+						</td>
+					</tr>
+					<tr>
+						<td>max-length &lt;integer&gt;</td>
+						<td>
+							The maximum length of peptides to consider. Default = 50.
+						</td>
+					</tr>
+					<tr>
+						<td>max-mass&lt;float&gt;</td>
+						<td>
+							The maximum mass (in Da) of peptides to consider. Default = 7200.
+						</td>
+					</tr>
+					<tr>
+						<td>min-length &lt;integer&gt;</td>
+						<td>The minimum length of peptides to consider. Default = 6.</td>
+					</tr>
+					<tr>
+						<td>min-mass&lt;float&gt;</td>
+						<td>
+							The minimum mass (in Da) of peptides to consider. Default = 200.
+						</td>
+					</tr>
+					<tr>
+						<td>cterm-peptide-mods-spec &lt;string&gt;</td>
+						<td>Specify peptide c-terminal modifications. See nterm-peptide-mods-spec for syntax. Default = (empty).</td>
+					</tr>
+					<tr>
+						<td>cterm-protein-mods-spec &lt;string&gt;</td>
+						<td>[[html:Specifies C-terminal static and variable mass modifications on proteins.Mod specification syntax is the same as for peptide mods (see nterm-peptide-mods-spec option),but these mods are applied only to peptide C-terminals that are also protein terminals.If variable modification are provided for both peptide and protein terminal, they will be applied one at a time. Default = (empty)</td>
+					</tr>
+					<tr>
+						<td>max-mods &lt;integer&gt;</td>
+						<td>The maximum number of modifications that can be applied to a single peptide. Default = 255.</td>
+					</tr>
+					<tr>
+						<td>min-mods &lt;integer&gt; </td>
+						<td> The minimum number of modifications that can be applied to a single peptide. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>mod-precision &lt;integer&gt;</td>
+						<td>Set the precision for modifications as written to .txt files. Default = 2.</td>
+					</tr>
+					<tr>
+						<td>mods-spec &lt;string&gt;</td>
+						<td>The general form of a modification specification has three components, as exemplified by 1STY+79.966331.
+							The three components are: [max_per_peptide]residues[+/-]mass_change
+In the example, max_per_peptide is 1, residues are STY, and mass_change is +79.966331. To specify a static modification, the number preceding the amino acid must be omitted; i.e., C+57.02146 specifies a static modification of 57.02146 Da to cysteine. Note that Tide allows at most one modification per amino acid. Also, the default modification (C+57.02146) will be added to every mods-spec string unless an explicit C+0 is included. Default = C+57.02146.
+						</td>
+					</tr>
+					<tr>
+						<td>nterm-peptide-mods-spec &lt;string&gt;</td>
+						<td>Specify peptide n-terminal modifications. Like --mods-spec, this specification has three components, but with a slightly different syntax. The max_per_peptide can be either "1", in which case it defines a variable terminal modification, or missing, in which case the modification is static. The residues field indicates which amino acids are subject to the modification, with the residue X corresponding to any amino acid. Finally, added_mass is defined as before. Default = (empty).</td>
+					</tr>
+					<tr>
+						<td>nterm-protein-mods-spec &lt;string&gt;</td>
+						<td> [[html:Same as cterm-protein-mods-spec, but for the protein N-terminal. Default = (empty)</td>
+					</tr>
+					<tr>
+						<td>auto-modifications T|F </td>
+						<td>Automatically infer modifications from the spectra themselves. Default = false.</td>
+					</tr>
+					<tr>
+						<td>allow-dups T|F</td>
+						<td>Prevent duplicate peptides between the target and decoy databases. When set to "F", the program keeps all target and previously generated decoy peptides in memory. A shuffled decoy will be re-shuffled multiple times to avoid duplication. If a non-duplicated peptide cannot be generated, the decoy is skipped entirely. When set to "T", every decoy is added to the database without checking for duplication. This option reduces the memory requirements significantly. Default = false.</td>
+					</tr>
+					<tr>
+						<td>decoy-format none|shuffle|peptide-reverse</td>
+						<td> Include a decoy version of every peptide by shuffling or reversing the target sequence or protein. In shuffle or peptide-reverse mode, each peptide is either reversed or shuffled, leaving the N-terminal and C-terminal amino acids in place. Note that peptides appear multiple times in the target database are only shuffled once. In peptide-reverse mode, palindromic peptides are shuffled. Also, if a shuffled peptide produces an overlap with the target or decoy database, then the peptide is re-shuffled up to 5 times. Note that, despite this repeated shuffling, homopolymers will appear in both the target and decoy database. Default = shuffle.</td>
+					</tr>
+					<tr>
+						<td>keep-terminal-aminos N|C|NC|none</td>
+						<td>When creating decoy peptides using decoy-format=shuffle or decoy-format=peptide-reverse, this option specifies whether the N-terminal and C-terminal amino acids are kept in place or allowed to be shuffled or reversed. For a target peptide "EAMPK" with decoy-format=peptide-reverse, setting keep-terminal-aminos to "NC" will yield "EPMAK"; setting it to "C" will yield "PMAEK"; setting it to "N" will yield "EKPMA"; and setting it to "none" will yield "KPMAE". Default = NC.</td>
+					</tr>
+					<tr>
+						<td>num-decoys-per-target &lt;integer&gt;</td>
+						<td>The number of decoys to generate per target. When set to a value n, then with concat=F tide-search will output one target and n decoys. The resulting files can be used to run the "average target-decoy competition" method in assign-confidence. This parameter only applies when decoy-format is shuffle. Default = 1.</td>
+					</tr>
+					<tr>
+						<td>seed &lt;string&gt;</td>
+						<td> When given a unsigned integer value seeds the random number generator with that value. When given the string "time" seeds the random number generator with the system time. Default = 1.</td>
+					</tr>
+					<tr>
+						<td>custom-enzyme &lt;string&gt; </td>
+						<td>Specify rules for in silico digestion of protein sequences. Overrides the enzyme option. Two lists of residues are given enclosed in square brackets or curly braces and separated by a |. The first list contains residues required/prohibited before the cleavage site and the second list is residues after the cleavage site. If the residues are required for digestion, they are in square brackets, '[' and ']'. If the residues prevent digestion, then they are enclosed in curly braces, '{' and '}'. Use X to indicate all residues. For example, trypsin cuts after R or K but not before P which is represented as [RK]|{P}. AspN cuts after any residue but only before D which is represented as [X]|[D]. To prevent the sequences from being digested at all, use {X}|{X}. Default = (empty).</td>
+					</tr>
+					<tr>
+						<td>digestion full-digest|partial-digest|non-specific-digest</td>
+						<td>Specify whether every peptide in the database must have two enzymatic termini (full-digest) or if peptides with only one enzymatic terminus are also included (partial-digest). Default = full-digest.</td>
+					</tr>
+					<tr>
+						<td>enzyme no-enzyme|trypsin|trypsin/p|chymotrypsin|elastase|clostripain|cyanogen-bromide|iodosobenzoate|proline-endopeptidase|staph-protease|asp-n|lys-c|lys-n|arg-c|glu-c|pepsin-a|elastase-trypsin-chymotrypsin|lysarginase|custom-enzyme</td>
+						<td>Specify the enzyme used to digest the proteins in silico. Available enzymes (with the corresponding digestion rules indicated in parentheses) include no-enzyme ([X]|[X]), trypsin ([RK]|{P}), trypsin/p ([RK]|[]), chymotrypsin ([FWYL]|{P}), elastase ([ALIV]|{P}), clostripain ([R]|[]), cyanogen-bromide ([M]|[]), iodosobenzoate ([W]|[]), proline-endopeptidase ([P]|[]), staph-protease ([E]|[]), asp-n ([]|[D]), lys-c ([K]|{P}), lys-n ([]|[K]), arg-c ([R]|{P}), glu-c ([DE]|{P}), pepsin-a ([FL]|{P}), elastase-trypsin-chymotrypsin ([ALIVKRWFY]|{P}), lysarginase ([]|[KR]). Specifying --enzyme no-enzyme yields a non-enzymatic digest. Warning: the resulting index may be quite large. Default = trypsin.</td>
+					</tr>
+					<tr>
+						<td>missed-cleavages &lt;integer&gt;</td>
+						<td>Maximum number of missed cleavages per peptide to allow in enzymatic digestion. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>
+							decoy-prefix &lt;string&gt;
+						</td>
+						<td>
+							Specifies the prefix of the protein names that indicate a decoy. Default = decoy_.
+						</td>
+					</tr>
+					<tr>
+						<td>mass-precision &lt;integer&gt;</td>
+						<td>Set the precision for masses and m/z written to sqt and text files. Default = 4.</td>
+					</tr>
+					<tr>
+						<td>output-dir &lt;string&gt;</td>
+						<td>The name of the directory where output files will be created. Default = crux-output.</td>
+					</tr>
+					<tr>
+						<td>overwrite T|F</td>
+						<td>Replace existing files if true or fail when trying to overwrite a file if false. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							parameter-file &lt;string&gt;
+						</td>
+						<td>
+							A file containing parameters. See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = (empty).
+						</td>
+					</tr>
+					<tr>
+						<td>
+							peptide-list T|F 
+						</td>
+						<td>
+							Create in the output directory a text file listing of all the peptides in the database, along with their corresponding decoy peptides, neutral masses and proteins, one per line. Default = false.
+						</td>
+					</tr>
+					<tr>
+						<td>temp-dir &lt;string&gt;</td>
+						<td>The name of the directory where temporary files will be created. If this parameter is blank, then the system temporary directory will be used Default = (empty).</td>
+					</tr>
+					<tr>
+						<td>verbosity &lt;integer&gt;</td>
+						<td> Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = 30.</td>
+					</tr>
+				</table> 
+				<p>tide-search Meta Data Section</p>
+				<table border="1" id="tabformat">
+					<!-- table headers-->
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+					<tr>
+						<td>use-tailor-calibration T|F </td>
+						<td>Fast, but heuristic PSM score calibration as described in <a href="https://pubmed.ncbi.nlm.nih.gov/32175744/">this article</a>. Default = <code>false</code>.</td>
+					</tr>
+					<tr>
+						<td>mod-precision &lt;integer&gt;</td>
+						<td>
+							Set the precision for modifications as written to .txt files. Default = 2
+						</td>
+					</td>
+					<tr>
+						<td>auto-precursor-window false|warn|fail</td>
+						<td>
+							Automatically estimate optimal value for the precursor-window parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = false.
+						</td>
+					</tr>
+					<tr>
+						<td>max-precursor-charge &lt;integer&gt;</td>
+						<td>
+							The maximum charge state of a spectra to consider in search. Default = 5.
+						</td>
+					</tr>
+					<tr>
+						<td>precursor-window &lt;float&gt;</td>
+						<td> Tolerance used for matching peptides to spectra. Peptides must be within +/- 'precursor-window' of the spectrum value. The precursor window units depend upon precursor-window-type. Default = 50.</td>
+					</tr>
+					<tr>
+						<td>
+							precursor-window-type mass|mz|ppm
+						</td>
+						<td>
+							Specify the units for the window that is used to select peptides around the precursor mass location (mass, mz, ppm). The magnitude of the window is defined by the precursor-window option, and candidate peptides must fall within this window. For the mass window-type, the spectrum precursor m+h value is converted to mass, and the window is defined as that mass +/- precursor-window. If the m+h value is not available, then the mass is calculated from the precursor m/z and provided charge. The peptide mass is computed as the sum of the monoisotopic amino acid masses plus 18 Da for the terminal OH group. The mz window-type calculates the window as spectrum precursor m/z +/- precursor-window and then converts the resulting m/z range to the peptide mass range using the precursor charge. For the parts-per-million (ppm) window-type, the spectrum mass is calculated as in the mass type. The lower bound of the mass window is then defined as the spectrum mass / (1.0 + (precursor-window / 1000000)) and the upper bound is defined as spectrum mass / (1.0 - (precursor-window / 1000000)). Default = ppm.
+
+						</td>
+					</tr>
+					<tr>
+						<td>auto-mz-bin-width false|warn|fail</td>
+						<td>Automatically estimate optimal value for the mz-bin-width parameter from the spectra themselves. false=no estimation, warn=try to estimate but use the default value in case of failure, fail=try to estimate and quit in case of failure. Default = false.</td>
+					</tr>
+					<tr>
+						<td>compute-sp T|F</td>
+						<td>Compute the preliminary score Sp for all candidate peptides. Report this score in the output, along with the corresponding rank, the number of matched ions and the total number of ions. This option is recommended if results are to be analyzed by Percolator.If sqt-output is enabled, then compute-sp is automatically enabled and cannot be overridden. Note that the Sp computation requires re-processing each observed spectrum, so turning on this switch involves significant computational overhead. Default = false.</td>
+					</tr>
+					<tr>
+						<td>deisotope&lt;float&gt;</td>
+						<td>Perform a simple deisotoping operation across each MS2 spectrum. For each peak in an MS2 spectrum, consider lower m/z peaks. If the current peak occurs where an expected peak would lie for any charge state less than the charge state of the precursor, within mass tolerance, and if the current peak is of lower abundance, then the peak is removed. The value of this parameter is the mass tolerance, in units of parts-per-million. If set to 0, no deisotoping is performed. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>exact-p-value T|F</td>
+						<td>Enable the calculation of exact p-values for the XCorr score as described in this article. Calculation of p-values increases the running time but increases the number of identifications at a fixed confidence threshold. The p-values will be reported in a new column with header "exact p-value", and the "xcorr score" column will be replaced with a "refactored xcorr" column. Note that, currently, p-values can only be computed when the mz-bin-width parameter is set to its default value. Variable and static mods are allowed on non-terminal residues in conjunction with p-value computation, but currently only static mods are allowed on the N-terminus, and no mods on the C-terminus. Default = false.</td>
+					</tr>
+					<tr>
+						<td>isotope-error &lt;string&gt;</td>
+						<td>List of positive, non-zero integers. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>min-peaks&lt;integer&gt;</td>
+						<td>The minimum number of peaks a spectrum must have for it to be searched. Default = 20.</td>
+					</tr>
+					<tr>
+						<td>
+							mz-bin-offset&lt;float&gt;
+						</td>
+						<td>
+							In the discretization of the m/z axes of the observed and theoretical spectra, this parameter specifies the location of the left edge of the first bin, relative to mass = 0 (i.e., mz-bin-offset = 0.xx means the left edge of the first bin will be located at +0.xx Da). Default = 0.4.
+						</td>
+					</tr>
+					<tr>
+						<td>mz-bin-width&lt;float&gt;</td>
+						<td>
+							Before calculation of the XCorr score, the m/z axes of the observed and theoretical spectra are discretized. This parameter specifies the size of each bin. The exact formula for computing the discretized m/z value is floor((x/mz-bin-width) + 1.0 - mz-bin-offset), where x is the observed m/z value. For low resolution ion trap ms/ms data 1.0005079 and for high resolution ms/ms 0.02 is recommended. Default = 0.02.
+						</td>
+					</tr>
+					<tr>
+						<td>peptide-centric-search T|F</td>
+						<td>Carries out a peptide-centric search. For each peptide the top-scoring spectra are reported, in contrast to the standard spectrum-centric search where the top-scoring peptides are reported. Note that in this case the "xcorr rank" column will contain the rank of the given spectrum with respect to the given candidate peptide, rather than vice versa (which is the default). Default = false.</td>
+					</tr>
+					<tr>
+						<td>score-function xcorr|residue-evidence|both </td>
+						<td> Function used for scoring PSMs. 'xcorr' is the original scoring function used by SEQUEST; 'residue-evidence' is designed to score high-resolution MS2 spectra; and 'both' calculates both scores. The latter requires that exact-p-value=T. Default = xcorr.</td>
+					</tr>
+					<tr>
+						<td>fragment-tolerance&lt;float&gt;</td>
+						<td> Mass tolerance (in Da) for scoring pairs of peaks when creating the residue evidence matrix. This parameter only makes sense when score-function is 'residue-evidence' or 'both'. Default = 0.02.</td>
+					</tr>
+					<tr>
+						<td>evidence-granularity&lt;integer&gt;</td>
+						<td>This parameter controls the granularity of the entries in the dynamic programming matrix used in residue-evidence scoring.Smaller values make the program run faster but give less accurate p-values; larger values make the program run more slowly but give more accurate p-values. Default = 25.</td>
+					</tr>
+					<tr>
+						<td>remove-precursor-peak T|F </td>
+						<td> If true, all peaks around the precursor m/z will be removed, within a range specified by the --remove-precursor-tolerance option. Default = false.</td>
+					</tr>
+					<tr>
+						<td>remove-precursor-tolerance &lt;float&gt;</td>
+						<td>This parameter specifies the tolerance (in Th) around each precursor m/z that is removed when the --remove-precursor-peak option is invoked. Default = 1.5.</td>
+					</tr>
+					<tr>
+						<td>scan-number &lt;string&gt;</td>
+						<td> A single scan number or a range of numbers to be searched. Range should be specified as 'first-last' which will include scans 'first' and 'last'. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>skip-preprocessing T|F</td>
+						<td>Skip preprocessing steps on spectra. Default = F. Default = false.</td>
+					</tr>
+					<tr>
+						<td>spectrum-charge 1|2|3|all</td>
+						<td>The spectrum charges to search. With 'all' every spectrum will be searched and spectra with multiple charge states will be searched once at each charge state. With 1, 2, or 3 only spectra with that charge state will be searched. Default = all.</td>
+					</tr>
+					<tr>
+						<td>spectrum-max-mz &lt;float&gt;</td>
+						<td>The highest spectrum m/z to search in the ms2 file. Default = 1e+09.</td>
+					</tr>
+					<tr>
+						<td>spectrum-min-mz &lt;float&gt;</td>
+						<td>The lowest spectrum m/z to search in the ms2 file. Default = 0.</td>
+					</tr>
+					<tr>
+						<td>use-flanking-peaks T|F</td>
+						<td> Include flanking peaks around singly charged b and y theoretical ions. Each flanking peak occurs in the adjacent m/z bin and has half the intensity of the primary peak. Default = false.</td>
+					</tr>
+					<tr>
+						<td>use-neutral-loss-peaks T|F</td>
+						<td> Controls whether neutral loss ions are considered in the search. For XCorr, the loss of ammonia (NH3, 17.0086343 Da) is applied to singly charged b- and y-ions, and the loss of water (H2O; 18.0091422) is applied to b-ions. If the precursor charge is >=3, then a doubly-charged version of each ion is added. For XCorr p-value, three types of neutral losses are included. Loss of ammonia and water are applied to b- and y-ions, and a carbon monoxide loss (CO, 27.9949) is also applied to b-ions. Higher charge fragments are included for all possible charges less than the precursor charge. All neutral loss peaks have an intensity 1/10 of the primary peak. Neutral losses are not yet implemented for the res-ev score function. Default = true.</td>
+					</tr>
+					<tr>
+						<td>num-threads &lt;integer&gt;</td>
+						<td>0=poll CPU to set num threads; else specify num threads directly. Default = 1.</td>
+					</tr>
+					<tr>
+						<td>pm-charges &lt;string&gt;</td>
+						<td> Precursor charge states to consider MS/MS spectra from, in measurement error estimation, provided as comma-separated values. Default = 0,2,3,4.</td>
+					</tr>
+					<tr>
+						<td>
+							pm-max-frag-mz &lt;float&gt;
+						</td>
+						<td>
+							Maximum fragment m/z value to use in measurement error estimation. Default = 1800.
+						</td>
+					</tr>
+					<tr>
+						<td>pm-max-precursor-delta-ppm &lt;float&gt;</td>
+						<td>Maximum ppm distance between precursor m/z values to consider two scans potentially generated by the same peptide for measurement error estimation. Default = 50.</td>
+					</tr>
+					<tr>
+						<td>pm-max-precursor-mz &lt;float&gt;</td>
+						<td> Minimum precursor m/z value to use in measurement error estimation. Default = 1800.</td>
+					</tr>
+					<tr>
+						<td>
+							pm-max-scan-separation &lt;integer&gt;
+						</td>
+						<td> Maximum number of scans two spectra can be separated by in order to be considered potentially generated by the same peptide, for measurement error estimation. Default = 1000.</td>
+					</tr>
+					<tr>
+						<td>pm-min-common-frag-peaks &lt;integer&gt;</td>
+						<td> Number of the most-intense peaks that two spectra must share in order to potentially be generated by the same peptide, for measurement error estimation. Default = 20.</td>
+					</tr>
+					<tr>
+						<td>pm-min-frag-mz &lt;float&gt;</td>
+						<td>Minimum fragment m/z value to use in measurement error estimation. Default = 150.</td>
+					</tr>
+					<tr>
+						<td>pm-min-peak-pairs &lt;integer&gt;</td>
+						<td> Minimum number of peak pairs (for precursor or fragment) that must be successfully paired in order to attempt to estimate measurement error distribution. Default = 200.</td>
+					</tr>
+					<tr>
+						<td>pm-min-precursor-mz &lt;float&gt;</td>
+						<td>Minimum precursor m/z value to use in measurement error estimation. Default = 400.</td>
+					</tr>
+					<tr>
+						<td>pm-min-scan-frag-peaks &lt;integer&gt;</td>
+						<td> Minimum fragment peaks an MS/MS scan must contain to be used in measurement error estimation. Default = 40.</td>
+					</tr>
+					<tr>
+						<td>pm-pair-top-n-frag-peaks &lt;integer&gt;</td>
+						<td>Number of fragment peaks per spectrum pair to be used in fragment error estimation. Default = 5</td>
+					</tr>
+					<tr>
+						<td>pm-top-n-frag-peaks &lt;integer&gt;</td>
+						<td>Number of most-intense fragment peaks to consider for measurement error estimation, per MS/MS spectrum. Default = 30.</td>
+					</tr>
+					<tr>
+						<td>concat T|F</td>
+						<td> When set to T, target and decoy search results are reported in a single file, and only the top-scoring N matches (as specified via --top-match) are reported for each spectrum, irrespective of whether the matches involve target or decoy peptides. Default = false.</td>
+					</tr>
+					<tr>
+						<td>file-column T|F</td>
+						<td> Include the file column in tab-delimited output. Default = true.</td>
+					</tr>
+					<tr>
+						<td>fileroot &lt;string&gt;</td>
+						<td>The fileroot string will be added as a prefix to all output file names. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>mass-precision &lt;integer&gt;</td>
+						<td> Set the precision for masses and m/z written to sqt and text files. Default = 4.</td>
+					</tr>
+					<tr>
+						<td>mzid-output T|F</td>
+						<td>Output an mzIdentML results file to the output directory. Default = false.</td>
+					</tr>
+					<tr>
+						<td>output-dir &lt;string&gt;</td>
+						<td>The name of the directory where output files will be created. Default = crux-output.</td>
+					</tr>
+					<tr>
+						<td>overwrite T|F </td>
+						<td> Replace existing files if true or fail when trying to overwrite a file if false. Default = false.</td>
+					</tr>
+					<tr>
+						<td>parameter-file &lt;string&gt;</td>
+						<td>A file containing parameters.  See the <a href="../file-formats/parameter-file.html">parameter documentation</a> page for details. Default = <code>&lt;empty&gt;</code>.</td>
+					</tr>
+					<tr>
+						<td>pepxml-output T|F</td>
+						<td>Output a pepXML results file to the output directory. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							pin-output T|F
+						</td>
+						<td>
+							Output a Percolator input (PIN) file to the output directory. Default = false.
+						</td>
+					</tr>
+					<tr>
+						<td>precision &lt;integer&gt;</td>
+						<td> Set the precision for scores written to sqt and text files. Default = 8.</td>
+					</tr>
+					<tr>
+						<td>
+							print-search-progress &lt;integer&gt;
+						</td>
+						<td>Show search progress by printing every n spectra searched. Set to 0 to show no search progress. Default = 1000</td>
+					</tr>
+					<tr>
+						<td>
+							spectrum-parser pwiz|mstoolkit
+						</td>
+						<td>Specify the parser to use for reading in MS/MS spectra. The default, ProteoWizard parser can read the MS/MS file formats listed here. The alternative is MSToolkit parser. If the ProteoWizard parser fails to read your files properly, you may want to try the MSToolkit parser instead. Default = pwiz.</td>
+					</tr>
+					<tr>
+						<td>
+							sqt-output T|F
+						</td>
+						<td>Outputs an SQT results file to the output directory. Note that if sqt-output is enabled, then compute-sp is automatically enabled and cannot be overridden. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							store-index &lt;string&gt;
+						</td>
+						<td>Specify the name of the file where the binarized fragmentation spectra will be stored. Subsequent runs of crux tide-search will execute more quickly if provided with the spectra in binary format. The filename is specified relative to the current working directory, not the Crux output directory (as specified by --output-dir). This option is not valid if multiple input spectrum files are given. Default = &lt;empty&gt;.</td>
+					</tr>
+					<tr>
+						<td>
+							top-match &lt;integer&gt;
+						</td>
+						<td>Specify the number of matches to report for each spectrum. Default = 5.
+						</td>
+					</tr>
+					<tr>
+						<td>
+							txt-output T|F
+						</td>
+						<td> Output a tab-delimited results file to the output directory. Default = true.</td>
+					</tr>
+					<tr>
+						<td>
+							brief-output T|F
+						</td>
+						<td>Output in tab-delimited text only the file name, scan number, charge, score and peptide.Incompatible with mzid-output=T, pin-output=T, pepxml-output=T or txt-output=F. Default = false.</td>
+					</tr>
+					<tr>
+						<td>
+							use-z-line T|F
+						</td>
+						<td> Specify whether, when parsing an MS2 spectrum file, Crux obtains the precursor mass information from the "S" line or the "Z" line. Default = true.</td>
+					</tr>
+					<tr>
+						<td>
+							verbosity &lt;integer&gt;
+						</td>
+						<td>Specify the verbosity of the current processes. Each level prints the following messages, including all those at lower verbosity levels: 0-fatal errors, 10-non-fatal errors, 20-warnings, 30-information on the progress of execution, 40-more progress information, 50-debug info, 60-detailed debug info. Default = 30.</td>
+					</tr>
+				</table>
+				<p>PSM Section</p>
+				<table border="1" id="tabformat">
+					<!-- table headers-->
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+						<tr>
+						<td>file</td>	
+						<td>The name of the file containing the scan.</td>
+						</tr>
+						<!-- <tr>
+							<td>fileidx</td>
+							<td>The integer index of the file containing the scan.</td>
+						</tr> -->
+						<tr>
+						<td>scan</td>	
+						<td>The identifying number of each scan.</td>
+						</tr>
+						<tr>
+						<td>charge</td>	
+						<td>The charge state for this spectrum in this PSM.</td>
+						</tr>
+						<tr>
+						<td>spectrum precursor m/z</td>	
+						<td>The observed m/z of the spectrum precursor ion.</td>
+						</tr>
+						<tr>
+						<td>spectrum neutral mass</td>
+						<td>The computed mass of the spectrum precursor at the given charge
+							state. This is equal to the precursor m/z minus the mass of a proton
+							(1.00727646677 Da), all multiplied by the charge.</td>
+						</tr>
+						<tr>
+						<td>peptide mass</td>	
+						<td>The mass of the peptide sequence, computed as the sum of the
+							amino acid masses plus the mass of water (18.010564684 Da or
+							18.0153 Da, depending on whether we are using monoisotopic or
+							average mass).</td>
+						</tr>
+						<tr>
+						<td>delta_cn</td>
+						<td>The normalized difference in XCorr for this PSM
+							relative to the next ranked PSM for the same spectrum
+							and charge. The denominator for normalization is the
+							maximum of the current XCorr and 1.0.
+							If <code>exact-p-value=T</code>, then the difference
+							is computed between -log(p-value) rather than XCorr,
+							and no normalization is applied.</td>	
+						</tr>
+						<tr>
+						<td>delta_lcn</td>
+						<td>Similar to delta_cn, except that the difference
+							is computed with respect to the lowest reported XCorr
+							score for a given spectrum and charge state.</td>	
+						</tr>
+						<tr>
+							<td>sp score</td>
+							<td>The SEQUEST-type preliminary score.</td>
+						</tr>
+						<tr>
+							<td>sp rank</td>
+							<td>The rank of this PSM when sorted by Sp score. Note that, in tide-search, the Sp score is only computed for PSMs that are reported to the user. Hence, the rank of the Sp score will be in the range from 1 to n, where the value of n is determined by the --top-match parameter.</td>
+						</tr>
+						<tr>
+						<td>xcorr score	</td>
+						<td>The SEQUEST-type cross correlation score.
+							This column only appears when <code>exact-p-value=F</code>.</td>
+						</tr>
+						<tr>
+							<td>res-ev rank</td>
+							<td>The rank of this PSM when sorted by res-ev score or by res-ev p-value.</td>
+						</tr>
+						<tr>
+							<td>combined p-value rank</td>
+							<td>The rank of this PSM when sorted by combined p-value.</td>
+						</tr>
+						<tr>
+							<td>exact p-value</td>
+							<td>The p-value computed as described in "Computing Exact p-values for a Cross-correlation Shotgun Proteomics Score Function". This column only appears when exact-p-value=T.</td>
+						</tr>
+						<tr>
+							<td>refactored xcorr</td>
+							<td>A discretized version of XCorr, used to compute the p-value. This column only appears when exact-p-value=T.</td>
+						</tr>
+						<tr>
+							<td>res-ev p-value</td>
+							<td>The high-resolution p-value computed as described in "Combining High-Resolution and Exact Calibration to Boost Statistical Power: A Well-Calibrated Score Function for High-Resolution MS2 Data". This column only appears when --score-function=both or --score-function=residue-evidence. In addition, exact-p-value=T.</td>
+						</tr>
+						<tr>
+							<td>res-ev p-score</td>
+							<td>The high-resolution score computed as described in "Combining High-Resolution and Exact Calibration to Boost Statistical Power: A Well-Calibrated Score Function for High-Resolution MS2 Data". This column only appears when --score-function=both or --score-function=residue-evidence.</td>
+						</tr>
+						<tr>
+							<td>combined p-value</td>
+							<td>The high-resolution p-value computed as described in "Combining High-Resolution and Exact Calibration to Boost Statistical Power: A Well-Calibrated Score Function for High-Resolution MS2 Data". This column only appears when --score-function=both and --exact-p-value=T.</td>
+						</tr>
+						<tr>
+						<td>tailor score</td>
+						<td></td>
+						</tr>
+						<tr>	
+						<td>xcorr rank</td>	
+						<td>The rank of this PSM when sorted by xcorr.</td>
+						</tr>
+						<tr>
+						<td>distinct matches/spectrum</td>	
+						<td>The number of unique candidate peptides in the database found for this
+							spectrum.  Note that this is always the number of target candidate
+							peptides, even if the PSM involves a decoy peptide.</td>
+						</tr>
+						<tr>
+						<td>sequence</td>	
+						<td>The peptide sequence, not including any modifications.</td>
+						</tr>
+						<tr>
+						<td>modifications</td>
+						<td>Variable modifications applied to the sequence.</td>	
+						</tr>
+						<tr>
+						<td>cleavage type</td>	
+						<td>The cleavage rules for generating this peptide based on the
+							user-specified enzyme specificity.</td>
+						</tr>
+						<tr>
+						<td>protein id</td>	
+						<td>A comma-separated list of proteins in which this peptide
+							appears. Optionally, the protein name may be followed by a number
+							in parentheses giving the start position of the peptide in the
+							protein.</td>
+						</tr>
+						</tr>
+						<td>flanking aa	</td>
+						<td>The amino acids that precede and follow this
+							peptide in the parent protein ID.  If the peptide
+							occurs in more than one protein, then this column
+							will contain a comma-separated list of pairs of amino
+							acids.</td>
+						</tr>
+						<tr>
+						<td>target/decoy</td>	
+						<td></td>
+						</tr>
+						<tr>
+						<td>original target sequence</td>
+						<td>The unmodified target sequence. For a target PSM,
+							the value in this column will be identical to the
+							value in the "sequence" column.  For a decoy PSM,
+							this column will contain the corresponding target
+							sequence.</td>
+						</tr>
+						<tr>
+							<td>b/y ions matched</td>
+							<td>The number of b-ions and y-ions in the peptide that have a corresponding peak in the spectrum.</td>
+						</tr>
+						<tr>
+							<td>b/y ions total</td>
+							<td>The total number of b- and y-ions predicted for this peptide.</td>
+						</tr>
+
+				</table> 
+			</center>
+		<!-- END CONTENT -->
+		</div>
+	</div>
+
+<footer class="site-footer">
+	<div id="centerfooter">
+		<div class="footerimportantlinks">
+			<img src="../images/linkicon.png" style="width:16px; height:16px"><h3>Important links</h3>
+			<ul>
+				<li><a href="../faq.html">Crux FAQ</a></li>
+				<li><a href="../glossary.html">Glossary of terminology</a></li>
+				<li><a href="http://scholar.google.com/citations?hl=en&user=Rw9S1HIAAAAJ">Google Scholar profile</a></li>
+				<li><a href="https://github.com/crux-toolkit/crux-toolkit">GitHub</a></li>
+				<li><a href="../release-notes.html">Release Notes</a></li>
+				<li><a href="https://mailman1.u.washington.edu/mailman/listinfo/crux-users" title="Receive announcements of new versions">Join the mailing list</a></li>
+				<li><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache license</a></li>
+				<li><a href="http://groups.google.com/group/crux-users">Support Board</a></li>
+			</ul>
+		</div>
+		<div class="footerimportantlinks tutoriallinks">
+			<img src="../images/tutorialicon.png" style="height:16px"><h3>Tutorials</h3>
+			<ul>
+				<li><a href="../tutorials/install.html">Installation</a></li>
+				<li><a href="../tutorials/gettingstarted.html">Getting started with Crux</a></li>
+				<li><a href="../tutorials/search.html">Running a simple search using Tide and Percolator</a></li>
+				<li><a href="../tutorials/customizedsearch.html">Customization and search options</a></li>
+				<li><a href="../tutorials/spectralcounts.html">Using spectral-counts</a></li>
+			</ul>
+		</div>
+		<div id="footertext">
+			<p>
+				The original version of Crux was written by Chris Park and Aaron Klammer
+				under the supervision
+				of <a href="http://www.gs.washington.edu/faculty/maccoss.htm">Prof. Michael
+				MacCoss</a>
+				and <a href="http://noble.gs.washington.edu/~noble">Prof. William
+				Stafford Noble</a> in the Department of Genome Sciences at the
+				University of Washington, Seattle.  Website by <a href="http://www.yuvalboss.com/">Yuval Boss</a>. 
+				<br />The complete list of contributors
+				can be found <a href="../contributors.html">here</a>.
+				<br />
+				<br />
+				Maintenance and development of Crux is funded by the <a href="https://www.nih.gov/">National Institutes of Health</a> award P41 GM103533. 
+			</p>
+		</div>
+	</div>
+</footer>
+	
+</body>
+
+</html>
